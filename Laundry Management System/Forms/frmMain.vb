@@ -23,5 +23,11 @@
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MDIBGColor()
+        tmrSysDateTime.Start()
+    End Sub
+
+    Private Sub tmrSysDateTime_Tick(sender As Object, e As EventArgs) Handles tmrSysDateTime.Tick
+        lblSysDate.Text = Format(Now, "long date")
+        lblSystemTime.Text = TimeOfDay
     End Sub
 End Class

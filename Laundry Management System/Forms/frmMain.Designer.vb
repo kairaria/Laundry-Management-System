@@ -31,6 +31,7 @@ Partial Class frmMain
         Me.RegisterPaymentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegisterExpenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenerateInvoiceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BizProfileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,7 +46,7 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LaundryOrdersToolStripMenuItem, Me.AccountingToolStripMenuItem, Me.SettingsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LaundryOrdersToolStripMenuItem, Me.AccountingToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.SettingsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
@@ -98,6 +99,13 @@ Partial Class frmMain
         Me.GenerateInvoiceToolStripMenuItem.Name = "GenerateInvoiceToolStripMenuItem"
         Me.GenerateInvoiceToolStripMenuItem.Size = New System.Drawing.Size(310, 34)
         Me.GenerateInvoiceToolStripMenuItem.Text = "Generate Invoice"
+        '
+        'ReportsToolStripMenuItem
+        '
+        Me.ReportsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReportsToolStripMenuItem.Name = "ReportsToolStripMenuItem"
+        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(113, 34)
+        Me.ReportsToolStripMenuItem.Text = "Reports"
         '
         'SettingsToolStripMenuItem
         '
@@ -200,4 +208,5 @@ Partial Class frmMain
     Friend WithEvents lblSysDate As Label
     Friend WithEvents lblSystemTime As Label
     Friend WithEvents tmrSysDateTime As Timer
+    Friend WithEvents ReportsToolStripMenuItem As ToolStripMenuItem
 End Class

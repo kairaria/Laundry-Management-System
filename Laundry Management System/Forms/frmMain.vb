@@ -1,4 +1,5 @@
 ﻿Public Class frmMain
+    Public NewWorkOrder As Boolean
     Sub MDIBGColor()
         Dim ctl As Control
         Dim ctlMDI As MdiClient
@@ -29,5 +30,15 @@
     Private Sub tmrSysDateTime_Tick(sender As Object, e As EventArgs) Handles tmrSysDateTime.Tick
         lblSysDate.Text = Format(Now, "long date")
         lblSystemTime.Text = TimeOfDay
+    End Sub
+
+    Private Sub NewWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWorkOrderToolStripMenuItem.Click
+        NewWorkOrder = True
+        frmWorkOrder.Show()
+    End Sub
+
+    Private Sub EditWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditWorkOrderToolStripMenuItem.Click
+        NewWorkOrder = False
+        frmWorkOrder.Show()
     End Sub
 End Class

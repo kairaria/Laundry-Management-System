@@ -82,6 +82,12 @@
     <Compile Include="Forms\frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmPayments.Designer.vb">
+      <DependentUpon>frmPayments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPayments.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmSplashscreen.Designer.vb">
       <DependentUpon>frmSplashscreen.vb</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPayments.resx">
+      <DependentUpon>frmPayments.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSplashscreen.resx">
       <DependentUpon>frmSplashscreen.vb</DependentUpon>

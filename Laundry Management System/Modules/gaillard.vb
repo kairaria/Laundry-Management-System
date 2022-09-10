@@ -11,6 +11,8 @@
     Public datefrom As Date
     Public dateto As Date
     Public appstart As String = Application.StartupPath & "\img\"
+    Public NewWorkOrder As Boolean
+    Public WorkOrderPickup As Boolean
 
 
 End Module

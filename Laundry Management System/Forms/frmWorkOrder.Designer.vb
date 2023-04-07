@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmWorkOrder
     Inherits System.Windows.Forms.Form
 
@@ -23,27 +23,29 @@ Partial Class frmWorkOrder
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.spltCWorkOrder = New System.Windows.Forms.SplitContainer()
+        Me.btnAddCustomer = New System.Windows.Forms.Button()
+        Me.btnSearchCustomer = New System.Windows.Forms.Button()
+        Me.txtSearchCustomer = New System.Windows.Forms.TextBox()
         Me.txtCustPhoneNum = New System.Windows.Forms.TextBox()
         Me.lblPhoneNumber = New System.Windows.Forms.Label()
         Me.txtCustName = New System.Windows.Forms.TextBox()
         Me.lblCustName = New System.Windows.Forms.Label()
         Me.cbxAddNewCust = New System.Windows.Forms.CheckBox()
-        Me.cbxCustomerSearch = New System.Windows.Forms.ComboBox()
         Me.spltCWorkOrderItem = New System.Windows.Forms.SplitContainer()
         Me.dgvWorkOrderItems = New System.Windows.Forms.DataGridView()
+        Me.pnWorkOrderItem = New System.Windows.Forms.Panel()
+        Me.lblWorkOrderID = New System.Windows.Forms.Label()
         Me.btnDeleteWorkItem = New System.Windows.Forms.Button()
+        Me.lblServiceItem = New System.Windows.Forms.Label()
+        Me.txtServiceItem = New System.Windows.Forms.TextBox()
+        Me.btnAddItem = New System.Windows.Forms.Button()
+        Me.lblQty = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.lblComments = New System.Windows.Forms.Label()
         Me.pnSaveWorkOrder = New System.Windows.Forms.Panel()
         Me.btnVoidWorkOrder = New System.Windows.Forms.Button()
         Me.btnSaveWorkOrder = New System.Windows.Forms.Button()
-        Me.btnAddItem = New System.Windows.Forms.Button()
-        Me.txtComments = New System.Windows.Forms.TextBox()
-        Me.lblComments = New System.Windows.Forms.Label()
-        Me.txtQuantity = New System.Windows.Forms.TextBox()
-        Me.lblQty = New System.Windows.Forms.Label()
-        Me.txtServiceItem = New System.Windows.Forms.TextBox()
-        Me.lblServiceItem = New System.Windows.Forms.Label()
-        Me.lblWorkOrderID = New System.Windows.Forms.Label()
-        Me.pnWorkOrderItem = New System.Windows.Forms.Panel()
         CType(Me.spltCWorkOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spltCWorkOrder.Panel1.SuspendLayout()
         Me.spltCWorkOrder.Panel2.SuspendLayout()
@@ -53,8 +55,8 @@ Partial Class frmWorkOrder
         Me.spltCWorkOrderItem.Panel2.SuspendLayout()
         Me.spltCWorkOrderItem.SuspendLayout()
         CType(Me.dgvWorkOrderItems, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnSaveWorkOrder.SuspendLayout()
         Me.pnWorkOrderItem.SuspendLayout()
+        Me.pnSaveWorkOrder.SuspendLayout()
         Me.SuspendLayout()
         '
         'spltCWorkOrder
@@ -67,12 +69,14 @@ Partial Class frmWorkOrder
         '
         'spltCWorkOrder.Panel1
         '
+        Me.spltCWorkOrder.Panel1.Controls.Add(Me.btnAddCustomer)
+        Me.spltCWorkOrder.Panel1.Controls.Add(Me.btnSearchCustomer)
+        Me.spltCWorkOrder.Panel1.Controls.Add(Me.txtSearchCustomer)
         Me.spltCWorkOrder.Panel1.Controls.Add(Me.txtCustPhoneNum)
         Me.spltCWorkOrder.Panel1.Controls.Add(Me.lblPhoneNumber)
         Me.spltCWorkOrder.Panel1.Controls.Add(Me.txtCustName)
         Me.spltCWorkOrder.Panel1.Controls.Add(Me.lblCustName)
         Me.spltCWorkOrder.Panel1.Controls.Add(Me.cbxAddNewCust)
-        Me.spltCWorkOrder.Panel1.Controls.Add(Me.cbxCustomerSearch)
         Me.spltCWorkOrder.Panel1.Padding = New System.Windows.Forms.Padding(10)
         '
         'spltCWorkOrder.Panel2
@@ -83,10 +87,39 @@ Partial Class frmWorkOrder
         Me.spltCWorkOrder.SplitterDistance = 96
         Me.spltCWorkOrder.TabIndex = 0
         '
+        'btnAddCustomer
+        '
+        Me.btnAddCustomer.Location = New System.Drawing.Point(997, 44)
+        Me.btnAddCustomer.Name = "btnAddCustomer"
+        Me.btnAddCustomer.Size = New System.Drawing.Size(116, 29)
+        Me.btnAddCustomer.TabIndex = 9
+        Me.btnAddCustomer.Text = "Add Customer"
+        Me.btnAddCustomer.UseVisualStyleBackColor = True
+        Me.btnAddCustomer.Visible = False
+        '
+        'btnSearchCustomer
+        '
+        Me.btnSearchCustomer.Location = New System.Drawing.Point(629, 9)
+        Me.btnSearchCustomer.Name = "btnSearchCustomer"
+        Me.btnSearchCustomer.Size = New System.Drawing.Size(127, 32)
+        Me.btnSearchCustomer.TabIndex = 8
+        Me.btnSearchCustomer.Text = "Search"
+        Me.btnSearchCustomer.UseVisualStyleBackColor = True
+        '
+        'txtSearchCustomer
+        '
+        Me.txtSearchCustomer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtSearchCustomer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtSearchCustomer.Location = New System.Drawing.Point(22, 9)
+        Me.txtSearchCustomer.Name = "txtSearchCustomer"
+        Me.txtSearchCustomer.Size = New System.Drawing.Size(593, 32)
+        Me.txtSearchCustomer.TabIndex = 7
+        Me.txtSearchCustomer.Text = "Search By Name or Phone Number"
+        '
         'txtCustPhoneNum
         '
         Me.txtCustPhoneNum.Enabled = False
-        Me.txtCustPhoneNum.Location = New System.Drawing.Point(817, 44)
+        Me.txtCustPhoneNum.Location = New System.Drawing.Point(676, 44)
         Me.txtCustPhoneNum.Name = "txtCustPhoneNum"
         Me.txtCustPhoneNum.Size = New System.Drawing.Size(296, 32)
         Me.txtCustPhoneNum.TabIndex = 5
@@ -95,7 +128,7 @@ Partial Class frmWorkOrder
         '
         Me.lblPhoneNumber.AutoSize = True
         Me.lblPhoneNumber.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPhoneNumber.Location = New System.Drawing.Point(637, 47)
+        Me.lblPhoneNumber.Location = New System.Drawing.Point(515, 47)
         Me.lblPhoneNumber.Name = "lblPhoneNumber"
         Me.lblPhoneNumber.Size = New System.Drawing.Size(155, 23)
         Me.lblPhoneNumber.TabIndex = 4
@@ -106,7 +139,7 @@ Partial Class frmWorkOrder
         Me.txtCustName.Enabled = False
         Me.txtCustName.Location = New System.Drawing.Point(194, 44)
         Me.txtCustName.Name = "txtCustName"
-        Me.txtCustName.Size = New System.Drawing.Size(421, 32)
+        Me.txtCustName.Size = New System.Drawing.Size(284, 32)
         Me.txtCustName.TabIndex = 3
         '
         'lblCustName
@@ -129,15 +162,6 @@ Partial Class frmWorkOrder
         Me.cbxAddNewCust.Text = "Add New Customer"
         Me.cbxAddNewCust.UseVisualStyleBackColor = True
         '
-        'cbxCustomerSearch
-        '
-        Me.cbxCustomerSearch.FormattingEnabled = True
-        Me.cbxCustomerSearch.Location = New System.Drawing.Point(20, 9)
-        Me.cbxCustomerSearch.Name = "cbxCustomerSearch"
-        Me.cbxCustomerSearch.Size = New System.Drawing.Size(595, 31)
-        Me.cbxCustomerSearch.TabIndex = 0
-        Me.cbxCustomerSearch.Text = "Search By Name or Phone Number"
-        '
         'spltCWorkOrderItem
         '
         Me.spltCWorkOrderItem.Dock = System.Windows.Forms.DockStyle.Fill
@@ -159,14 +183,44 @@ Partial Class frmWorkOrder
         '
         'dgvWorkOrderItems
         '
+        Me.dgvWorkOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgvWorkOrderItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvWorkOrderItems.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.dgvWorkOrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvWorkOrderItems.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvWorkOrderItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvWorkOrderItems.Location = New System.Drawing.Point(0, 0)
         Me.dgvWorkOrderItems.Name = "dgvWorkOrderItems"
         Me.dgvWorkOrderItems.RowTemplate.Height = 28
         Me.dgvWorkOrderItems.Size = New System.Drawing.Size(1106, 202)
         Me.dgvWorkOrderItems.TabIndex = 0
+        '
+        'pnWorkOrderItem
+        '
+        Me.pnWorkOrderItem.Controls.Add(Me.lblWorkOrderID)
+        Me.pnWorkOrderItem.Controls.Add(Me.btnDeleteWorkItem)
+        Me.pnWorkOrderItem.Controls.Add(Me.lblServiceItem)
+        Me.pnWorkOrderItem.Controls.Add(Me.txtServiceItem)
+        Me.pnWorkOrderItem.Controls.Add(Me.btnAddItem)
+        Me.pnWorkOrderItem.Controls.Add(Me.lblQty)
+        Me.pnWorkOrderItem.Controls.Add(Me.txtComments)
+        Me.pnWorkOrderItem.Controls.Add(Me.txtQuantity)
+        Me.pnWorkOrderItem.Controls.Add(Me.lblComments)
+        Me.pnWorkOrderItem.Location = New System.Drawing.Point(0, 3)
+        Me.pnWorkOrderItem.Name = "pnWorkOrderItem"
+        Me.pnWorkOrderItem.Padding = New System.Windows.Forms.Padding(10)
+        Me.pnWorkOrderItem.Size = New System.Drawing.Size(1077, 165)
+        Me.pnWorkOrderItem.TabIndex = 10
+        '
+        'lblWorkOrderID
+        '
+        Me.lblWorkOrderID.AutoSize = True
+        Me.lblWorkOrderID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblWorkOrderID.Location = New System.Drawing.Point(22, 18)
+        Me.lblWorkOrderID.Name = "lblWorkOrderID"
+        Me.lblWorkOrderID.Size = New System.Drawing.Size(138, 23)
+        Me.lblWorkOrderID.TabIndex = 0
+        Me.lblWorkOrderID.Text = "WorkOrder ID"
         '
         'btnDeleteWorkItem
         '
@@ -182,6 +236,76 @@ Partial Class frmWorkOrder
         Me.btnDeleteWorkItem.TabIndex = 9
         Me.btnDeleteWorkItem.Text = "Delete Item"
         Me.btnDeleteWorkItem.UseVisualStyleBackColor = False
+        '
+        'lblServiceItem
+        '
+        Me.lblServiceItem.AutoSize = True
+        Me.lblServiceItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServiceItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblServiceItem.Location = New System.Drawing.Point(22, 47)
+        Me.lblServiceItem.Name = "lblServiceItem"
+        Me.lblServiceItem.Size = New System.Drawing.Size(131, 23)
+        Me.lblServiceItem.TabIndex = 1
+        Me.lblServiceItem.Text = "Service Item"
+        '
+        'txtServiceItem
+        '
+        Me.txtServiceItem.Location = New System.Drawing.Point(160, 44)
+        Me.txtServiceItem.Name = "txtServiceItem"
+        Me.txtServiceItem.Size = New System.Drawing.Size(393, 32)
+        Me.txtServiceItem.TabIndex = 2
+        '
+        'btnAddItem
+        '
+        Me.btnAddItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnAddItem.FlatAppearance.BorderColor = System.Drawing.Color.Yellow
+        Me.btnAddItem.FlatAppearance.BorderSize = 2
+        Me.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAddItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddItem.ForeColor = System.Drawing.Color.Yellow
+        Me.btnAddItem.Location = New System.Drawing.Point(619, 86)
+        Me.btnAddItem.Name = "btnAddItem"
+        Me.btnAddItem.Size = New System.Drawing.Size(180, 51)
+        Me.btnAddItem.TabIndex = 7
+        Me.btnAddItem.Text = "Add Item"
+        Me.btnAddItem.UseVisualStyleBackColor = False
+        '
+        'lblQty
+        '
+        Me.lblQty.AutoSize = True
+        Me.lblQty.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblQty.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblQty.Location = New System.Drawing.Point(615, 47)
+        Me.lblQty.Name = "lblQty"
+        Me.lblQty.Size = New System.Drawing.Size(93, 23)
+        Me.lblQty.TabIndex = 3
+        Me.lblQty.Text = "Quantity"
+        '
+        'txtComments
+        '
+        Me.txtComments.Location = New System.Drawing.Point(160, 86)
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.Size = New System.Drawing.Size(393, 63)
+        Me.txtComments.TabIndex = 6
+        '
+        'txtQuantity
+        '
+        Me.txtQuantity.Location = New System.Drawing.Point(735, 44)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(64, 32)
+        Me.txtQuantity.TabIndex = 4
+        '
+        'lblComments
+        '
+        Me.lblComments.AutoSize = True
+        Me.lblComments.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblComments.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblComments.Location = New System.Drawing.Point(22, 100)
+        Me.lblComments.Name = "lblComments"
+        Me.lblComments.Size = New System.Drawing.Size(117, 23)
+        Me.lblComments.TabIndex = 5
+        Me.lblComments.Text = "Comments"
         '
         'pnSaveWorkOrder
         '
@@ -206,7 +330,7 @@ Partial Class frmWorkOrder
         Me.btnVoidWorkOrder.Name = "btnVoidWorkOrder"
         Me.btnVoidWorkOrder.Size = New System.Drawing.Size(500, 102)
         Me.btnVoidWorkOrder.TabIndex = 1
-        Me.btnVoidWorkOrder.Text = "Cancel"
+        Me.btnVoidWorkOrder.Text = "Cancel/Delete Work Order"
         Me.btnVoidWorkOrder.UseVisualStyleBackColor = False
         '
         'btnSaveWorkOrder
@@ -224,103 +348,6 @@ Partial Class frmWorkOrder
         Me.btnSaveWorkOrder.TabIndex = 0
         Me.btnSaveWorkOrder.Text = "Save WorkOrder"
         Me.btnSaveWorkOrder.UseVisualStyleBackColor = False
-        '
-        'btnAddItem
-        '
-        Me.btnAddItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnAddItem.FlatAppearance.BorderColor = System.Drawing.Color.Yellow
-        Me.btnAddItem.FlatAppearance.BorderSize = 2
-        Me.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddItem.ForeColor = System.Drawing.Color.Yellow
-        Me.btnAddItem.Location = New System.Drawing.Point(619, 86)
-        Me.btnAddItem.Name = "btnAddItem"
-        Me.btnAddItem.Size = New System.Drawing.Size(180, 51)
-        Me.btnAddItem.TabIndex = 7
-        Me.btnAddItem.Text = "Add Item"
-        Me.btnAddItem.UseVisualStyleBackColor = False
-        '
-        'txtComments
-        '
-        Me.txtComments.Location = New System.Drawing.Point(160, 86)
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.Size = New System.Drawing.Size(393, 63)
-        Me.txtComments.TabIndex = 6
-        '
-        'lblComments
-        '
-        Me.lblComments.AutoSize = True
-        Me.lblComments.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblComments.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblComments.Location = New System.Drawing.Point(22, 100)
-        Me.lblComments.Name = "lblComments"
-        Me.lblComments.Size = New System.Drawing.Size(117, 23)
-        Me.lblComments.TabIndex = 5
-        Me.lblComments.Text = "Comments"
-        '
-        'txtQuantity
-        '
-        Me.txtQuantity.Location = New System.Drawing.Point(735, 44)
-        Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(64, 32)
-        Me.txtQuantity.TabIndex = 4
-        '
-        'lblQty
-        '
-        Me.lblQty.AutoSize = True
-        Me.lblQty.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblQty.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQty.Location = New System.Drawing.Point(615, 47)
-        Me.lblQty.Name = "lblQty"
-        Me.lblQty.Size = New System.Drawing.Size(93, 23)
-        Me.lblQty.TabIndex = 3
-        Me.lblQty.Text = "Quantity"
-        '
-        'txtServiceItem
-        '
-        Me.txtServiceItem.Location = New System.Drawing.Point(160, 44)
-        Me.txtServiceItem.Name = "txtServiceItem"
-        Me.txtServiceItem.Size = New System.Drawing.Size(393, 32)
-        Me.txtServiceItem.TabIndex = 2
-        '
-        'lblServiceItem
-        '
-        Me.lblServiceItem.AutoSize = True
-        Me.lblServiceItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServiceItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblServiceItem.Location = New System.Drawing.Point(22, 47)
-        Me.lblServiceItem.Name = "lblServiceItem"
-        Me.lblServiceItem.Size = New System.Drawing.Size(131, 23)
-        Me.lblServiceItem.TabIndex = 1
-        Me.lblServiceItem.Text = "Service Item"
-        '
-        'lblWorkOrderID
-        '
-        Me.lblWorkOrderID.AutoSize = True
-        Me.lblWorkOrderID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblWorkOrderID.Location = New System.Drawing.Point(22, 18)
-        Me.lblWorkOrderID.Name = "lblWorkOrderID"
-        Me.lblWorkOrderID.Size = New System.Drawing.Size(138, 23)
-        Me.lblWorkOrderID.TabIndex = 0
-        Me.lblWorkOrderID.Text = "WorkOrder ID"
-        '
-        'pnWorkOrderItem
-        '
-        Me.pnWorkOrderItem.Controls.Add(Me.lblWorkOrderID)
-        Me.pnWorkOrderItem.Controls.Add(Me.btnDeleteWorkItem)
-        Me.pnWorkOrderItem.Controls.Add(Me.lblServiceItem)
-        Me.pnWorkOrderItem.Controls.Add(Me.txtServiceItem)
-        Me.pnWorkOrderItem.Controls.Add(Me.btnAddItem)
-        Me.pnWorkOrderItem.Controls.Add(Me.lblQty)
-        Me.pnWorkOrderItem.Controls.Add(Me.txtComments)
-        Me.pnWorkOrderItem.Controls.Add(Me.txtQuantity)
-        Me.pnWorkOrderItem.Controls.Add(Me.lblComments)
-        Me.pnWorkOrderItem.Location = New System.Drawing.Point(0, 3)
-        Me.pnWorkOrderItem.Name = "pnWorkOrderItem"
-        Me.pnWorkOrderItem.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnWorkOrderItem.Size = New System.Drawing.Size(1077, 165)
-        Me.pnWorkOrderItem.TabIndex = 10
         '
         'frmWorkOrder
         '
@@ -347,9 +374,9 @@ Partial Class frmWorkOrder
         CType(Me.spltCWorkOrderItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.spltCWorkOrderItem.ResumeLayout(False)
         CType(Me.dgvWorkOrderItems, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnSaveWorkOrder.ResumeLayout(False)
         Me.pnWorkOrderItem.ResumeLayout(False)
         Me.pnWorkOrderItem.PerformLayout()
+        Me.pnSaveWorkOrder.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -360,7 +387,6 @@ Partial Class frmWorkOrder
     Friend WithEvents txtCustName As TextBox
     Friend WithEvents lblCustName As Label
     Friend WithEvents cbxAddNewCust As CheckBox
-    Friend WithEvents cbxCustomerSearch As ComboBox
     Friend WithEvents spltCWorkOrderItem As SplitContainer
     Friend WithEvents dgvWorkOrderItems As DataGridView
     Friend WithEvents pnSaveWorkOrder As Panel
@@ -376,4 +402,7 @@ Partial Class frmWorkOrder
     Friend WithEvents btnDeleteWorkItem As Button
     Friend WithEvents btnVoidWorkOrder As Button
     Friend WithEvents pnWorkOrderItem As Panel
+    Friend WithEvents txtSearchCustomer As TextBox
+    Friend WithEvents btnAddCustomer As Button
+    Friend WithEvents btnSearchCustomer As Button
 End Class

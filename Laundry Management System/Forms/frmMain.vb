@@ -1,4 +1,4 @@
-﻿
+
 
 Public Class frmMain
 
@@ -41,14 +41,17 @@ Public Class frmMain
     End Sub
 
     Private Sub NewWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWorkOrderToolStripMenuItem.Click
+        CheckCustomer = True
         NewWorkOrder = True
+        NewWorkOrderItem = True
         frmWorkOrder.Show()
         frmWorkOrder.Activate()
     End Sub
 
     Private Sub EditWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditWorkOrderToolStripMenuItem.Click
+        CheckCustomer = True
         NewWorkOrder = False
-        WorkOrderPickup = False
+        NewWorkOrderItem = False
         frmWorkOrder.Show()
         frmWorkOrder.Activate()
     End Sub
@@ -64,8 +67,11 @@ Public Class frmMain
     End Sub
 
     Private Sub WorkOrderPickupDeliveryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WorkOrderPickupDeliveryToolStripMenuItem.Click
-        NewWorkOrder = False
-        WorkOrderPickup = True
+        CheckCustomer = True
+        CheckCustomer = False
+        NewWorkOrder = True
+        NewWorkOrderItem = True
+        WorkOrderPickup = False
         frmWorkOrder.Show()
     End Sub
 End Class

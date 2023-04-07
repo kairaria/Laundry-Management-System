@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class frmSplashscreen
+Public NotInheritable Class frmSplashscreen
 
     'TODO: This form can easily be set as the splash screen for the application by going to the "Application" tab
     '  of the Project Designer ("Properties" under the "Project" menu).
@@ -15,7 +15,7 @@
             ApplicationTitle.Text = My.Application.Info.Title
         Else
             'If the application title is missing, use the application name, without the extension
-            ApplicationTitle.Text = System.IO.Path.GetFileNameWithoutExtension(My.Application.Info.AssemblyName)
+            ApplicationTitle.Text = IO.Path.GetFileNameWithoutExtension(My.Application.Info.AssemblyName)
         End If
 
         'Format the version information using the text set into the Version control at design time as the

@@ -5,6 +5,8 @@ Public Class frmWorkOrder
 
     Private CustomerID, WorkOrderID, WorkOrderItemID As Integer
 
+
+
     Private Sub CbxAddNewCust_CheckedChanged(sender As Object, e As EventArgs) Handles cbxAddNewCust.CheckedChanged
         dgvWorkOrderItems.DataSource = Nothing
         dgvWorkOrderItems.Rows.Clear()
@@ -55,7 +57,7 @@ Public Class frmWorkOrder
 
     Function SaveNewWorkOrder() As String
         Try
-            Return UpdateRecord("INSERT INTO workorder (customerId,datecreated,datemodified) VALUES ('" & CustomerID & "', now(),now())")
+            Return UpdateRecord("INSERT INTO workorder (customerId) VALUES ('" & CustomerID & "')")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -66,7 +68,7 @@ Public Class frmWorkOrder
 
     Function SaveNewWorkOrderItem() As String
         Try
-            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments,datecreated,datemodified) VALUES ('" & WorkOrderID & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "', now(), now())")
+            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments) VALUES ('" & WorkOrderID & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "')")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -76,7 +78,7 @@ Public Class frmWorkOrder
 
     Function UpdateWorkOrderItem(WorkOrderItemId As Integer) As String
         Try
-            Return UpdateRecord("UPDATE workorderitem SET serviceitem = '" & txtServiceItem.Text & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "',datemodified = now() WHERE workorderitemid = '" & WorkOrderItemId & "'")
+            Return UpdateRecord("UPDATE workorderitem SET serviceitem = '" & txtServiceItem.Text & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "' WHERE workorderitemid = '" & WorkOrderItemId & "'")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -86,7 +88,7 @@ Public Class frmWorkOrder
 
     Function ArchiveWorkOrderItem(WorkOrderItemId As Integer) As String
         Try
-            Return UpdateRecord("UPDATE workorderitem SET valid = 0, datemodified = now() WHERE workorderitemid = '" & WorkOrderItemId & "'")
+            Return UpdateRecord("UPDATE workorderitem SET valid = 0 WHERE workorderitemid = '" & WorkOrderItemId & "'")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -96,7 +98,7 @@ Public Class frmWorkOrder
 
     Function ArchiveWorkOrder(WorkOrderId As Integer) As String
         Try
-            Return UpdateRecord("UPDATE workorder SET valid = 0, datemodified = now() WHERE workorderid = '" & WorkOrderId & "'")
+            Return UpdateRecord("UPDATE workorder SET valid = 0 WHERE workorderid = '" & WorkOrderId & "'")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -179,6 +181,7 @@ Public Class frmWorkOrder
         MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.")
         If MsgBoxResult.Yes Then
             MsgBox("WorkOrder Slip Printed")
+            frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
             frmPayments.Show()
             Me.Close()
         Else
@@ -190,10 +193,14 @@ Public Class frmWorkOrder
     End Sub
 
     Private Sub BtnVoidWorkOrder_Click(sender As Object, e As EventArgs) Handles btnVoidWorkOrder.Click
-        MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder")
-        If MsgBoxResult.Yes Then
-            ArchiveWorkOrder(WorkOrderID)
-            MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+        If WorkOrderID <> 0 Then
+            MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder")
+            If MsgBoxResult.Yes Then
+                ArchiveWorkOrder(WorkOrderID)
+                MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+                Me.Close()
+            End If
+        Else
             Me.Close()
         End If
         WorkOrderID = 0
@@ -361,7 +368,6 @@ Public Class frmWorkOrder
         End Try
     End Sub
 
-
     Private Sub BgvWorkOrderItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvWorkOrderItems.CellDoubleClick
         WorkOrderID = Nothing
         WorkOrderItemID = Nothing
@@ -430,4 +436,33 @@ Public Class frmWorkOrder
             txtSearchCustomer.Text = ""
         End If
     End Sub
+
+    Private Sub txtCustPhoneNum_TextChanged(sender As Object, e As EventArgs) Handles txtCustPhoneNum.TextChanged
+        If System.Text.RegularExpressions.Regex.IsMatch(txtCustPhoneNum.Text, "[^ 0-9]") Then
+            txtCustPhoneNum.Text = ""
+        End If
+    End Sub
+
+    Private Sub txtCustPhoneNum_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCustPhoneNum.KeyPress
+        If (Not Char.IsControl(e.KeyChar) _
+                     AndAlso (Not Char.IsDigit(e.KeyChar) _
+                     AndAlso (e.KeyChar <> Microsoft.VisualBasic.ChrW(46)))) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtQuantity_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtQuantity.KeyPress
+        If (Not Char.IsControl(e.KeyChar) _
+                     AndAlso (Not Char.IsDigit(e.KeyChar) _
+                     AndAlso (e.KeyChar <> Microsoft.VisualBasic.ChrW(46)))) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtQuantity_TextChanged(sender As Object, e As EventArgs) Handles txtQuantity.TextChanged
+        If System.Text.RegularExpressions.Regex.IsMatch(txtQuantity.Text, "[^ 0-9]") Then
+            txtQuantity.Text = ""
+        End If
+    End Sub
+
 End Class

@@ -11,7 +11,8 @@ Module gaillard
     Public appstart As String = Application.StartupPath & "\img\"
     Public connStr As String = "Database=gaillard_woms;Data Source=127.0.0.1;User Id=root;Password=Allblacks@7;Allow User Variables=True;"
     Public connection As New MySqlConnection(connStr)
-    Public CheckCustomer, NewWorkOrder, NewWorkOrderItem, EditWorkOrderItem, WorkOrderPickup As Boolean
+    Public CheckCustomer, NewWorkOrder, NewWorkOrderItem, WorkOrderPickup As Boolean
+
 
     Public Function UpdateRecord(ByVal query As String) As Integer
         Try

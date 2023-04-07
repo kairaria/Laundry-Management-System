@@ -36,8 +36,7 @@ Partial Class frmPayments
         Me.txtWorkOrder = New System.Windows.Forms.TextBox()
         Me.lblWorkOrderID = New System.Windows.Forms.Label()
         Me.gbxSearch = New System.Windows.Forms.GroupBox()
-        Me.rbWorkOrderInvoice = New System.Windows.Forms.RadioButton()
-        Me.rbCustomer = New System.Windows.Forms.RadioButton()
+        Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtOrderInvoice = New System.Windows.Forms.TextBox()
         Me.dgvPayments = New System.Windows.Forms.DataGridView()
         Me.pnlTitle = New System.Windows.Forms.Panel()
@@ -205,8 +204,7 @@ Partial Class frmPayments
         '
         'gbxSearch
         '
-        Me.gbxSearch.Controls.Add(Me.rbWorkOrderInvoice)
-        Me.gbxSearch.Controls.Add(Me.rbCustomer)
+        Me.gbxSearch.Controls.Add(Me.btnSearch)
         Me.gbxSearch.Controls.Add(Me.txtOrderInvoice)
         Me.gbxSearch.Location = New System.Drawing.Point(12, 12)
         Me.gbxSearch.Name = "gbxSearch"
@@ -215,34 +213,23 @@ Partial Class frmPayments
         Me.gbxSearch.TabStop = False
         Me.gbxSearch.Text = "Search"
         '
-        'rbWorkOrderInvoice
+        'btnSearch
         '
-        Me.rbWorkOrderInvoice.AutoSize = True
-        Me.rbWorkOrderInvoice.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbWorkOrderInvoice.Location = New System.Drawing.Point(18, 67)
-        Me.rbWorkOrderInvoice.Name = "rbWorkOrderInvoice"
-        Me.rbWorkOrderInvoice.Size = New System.Drawing.Size(302, 25)
-        Me.rbWorkOrderInvoice.TabIndex = 3
-        Me.rbWorkOrderInvoice.TabStop = True
-        Me.rbWorkOrderInvoice.Text = "By WorkOrder Num or Invoice Num"
-        Me.rbWorkOrderInvoice.UseVisualStyleBackColor = True
-        '
-        'rbCustomer
-        '
-        Me.rbCustomer.AutoSize = True
-        Me.rbCustomer.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rbCustomer.Location = New System.Drawing.Point(18, 25)
-        Me.rbCustomer.Name = "rbCustomer"
-        Me.rbCustomer.Size = New System.Drawing.Size(226, 25)
-        Me.rbCustomer.TabIndex = 2
-        Me.rbCustomer.TabStop = True
-        Me.rbCustomer.Text = "By Client Name or Phone"
-        Me.rbCustomer.UseVisualStyleBackColor = True
+        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.btnSearch.Location = New System.Drawing.Point(185, 86)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(128, 37)
+        Me.btnSearch.TabIndex = 2
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'txtOrderInvoice
         '
+        Me.txtOrderInvoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtOrderInvoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOrderInvoice.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOrderInvoice.Location = New System.Drawing.Point(18, 98)
+        Me.txtOrderInvoice.Location = New System.Drawing.Point(18, 36)
         Me.txtOrderInvoice.Name = "txtOrderInvoice"
         Me.txtOrderInvoice.Size = New System.Drawing.Size(296, 27)
         Me.txtOrderInvoice.TabIndex = 1
@@ -315,8 +302,6 @@ Partial Class frmPayments
     Friend WithEvents txtWorkOrder As TextBox
     Friend WithEvents lblWorkOrderID As Label
     Friend WithEvents gbxSearch As GroupBox
-    Friend WithEvents rbWorkOrderInvoice As RadioButton
-    Friend WithEvents rbCustomer As RadioButton
     Friend WithEvents txtOrderInvoice As TextBox
     Friend WithEvents dgvPayments As DataGridView
     Friend WithEvents btnClose As Button
@@ -325,4 +310,5 @@ Partial Class frmPayments
     Friend WithEvents lblTransactionID As Label
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents lblAmount As Label
+    Friend WithEvents btnSearch As Button
 End Class

@@ -82,7 +82,7 @@ Partial Class frmExpenses
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(108, 57)
         Me.btnClose.TabIndex = 10
-        Me.btnClose.Text = "Cancel"
+        Me.btnClose.Text = "Exit"
         Me.btnClose.UseVisualStyleBackColor = False
         '
         'btnSave

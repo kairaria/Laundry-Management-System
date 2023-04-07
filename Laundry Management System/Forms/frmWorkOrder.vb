@@ -16,8 +16,7 @@ Public Class frmWorkOrder
             btnAddCustomer.Visible = True
             btnSearchCustomer.Visible = False
             txtSearchCustomer.Text = ""
-            SelectCustomer = False
-            AddCustomer = True
+            CheckCustomer = True
         Else
             txtCustName.Enabled = False
             txtCustPhoneNum.Enabled = False
@@ -25,8 +24,7 @@ Public Class frmWorkOrder
             btnAddCustomer.Visible = False
             btnSearchCustomer.Visible = True
             txtSearchCustomer.Text = "Search By Name or Phone Number"
-            SelectCustomer = True
-            AddCustomer = False
+            CheckCustomer = False
         End If
     End Sub
 
@@ -34,44 +32,115 @@ Public Class frmWorkOrder
         MdiParent = frmMain
         txtSearchCustomer.Enabled = True
         Me.Refresh()
-        If EditWorkOrder.Equals(False) And EditWorkOrderItem.Equals(False) Then
+        If NewWorkOrder Then
             btnSaveWorkOrder.Text = "Save and Print WorkOrder"
-        Else
-            If WorkOrderPickup.Equals(True) Then
-                pnWorkOrderItem.Hide()
-                cbxAddNewCust.Text = "Partial Collection?"
-                btnSaveWorkOrder.Text = "Confirm Collection By Client"
-            Else
-                btnSaveWorkOrder.Text = "Update and Print WorkOrder"
-            End If
+        ElseIf NewWorkOrder = False Then
+            btnSaveWorkOrder.Text = "Update and Print WorkOrder"
+            cbxAddNewCust.Enabled = False
+        ElseIf WorkOrderPickup Then
+            pnWorkOrderItem.Hide()
+            cbxAddNewCust.Text = "Partial Collection?"
+            btnSaveWorkOrder.Text = "Confirm Collection By Client"
         End If
+    End Sub
+    Function AddNewCustomer(name As String, phone As String)
+        Try
+            Return UpdateRecord("Insert INTO customer (name,phone) VALUES('" & name & "', '" & phone & "')")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+    End Function
+
+    Function SaveNewWorkOrder() As String
+        Try
+            Return UpdateRecord("INSERT INTO workorder (customerId,datecreated,datemodified) VALUES ('" & CustomerID & "', now(),now())")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+
+    End Function
+
+    Function SaveNewWorkOrderItem() As String
+        Try
+            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments,datecreated,datemodified) VALUES ('" & WorkOrderID & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "', now(), now())")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+    End Function
+
+    Function UpdateWorkOrderItem(WorkOrderItemId As Integer) As String
+        Try
+            Return UpdateRecord("UPDATE workorderitem SET serviceitem = '" & txtServiceItem.Text & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "',datemodified = now() WHERE workorderitemid = '" & WorkOrderItemId & "'")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+    End Function
+
+    Function ArchiveWorkOrderItem(WorkOrderItemId As Integer) As String
+        Try
+            Return UpdateRecord("UPDATE workorderitem SET valid = 0, datemodified = now() WHERE workorderitemid = '" & WorkOrderItemId & "'")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+    End Function
+
+    Function ArchiveWorkOrder(WorkOrderId As Integer) As String
+        Try
+            Return UpdateRecord("UPDATE workorder SET valid = 0, datemodified = now() WHERE workorderid = '" & WorkOrderId & "'")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return 0
+        End Try
+    End Function
+
+    Sub ClearCustomerFields()
+        txtCustName.Text = ""
+        txtCustPhoneNum.Text = ""
+        txtSearchCustomer.Text = ""
+        CustomerID = 0
+    End Sub
+
+    Sub ClearWorkOrderItemFields()
+        txtServiceItem.Text = ""
+        txtQuantity.Text = ""
+        txtComments.Text = ""
+        WorkOrderItemID = 0
     End Sub
 
     Private Sub BtnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
 
-        Try
-            If (IsNothing(WorkOrderID) Or lblWorkOrderID.Text = "WorkOrder ID" Or lblWorkOrderID.Text = "0") And AddWorkOrder = True Then
-                UpdateRecord("INSERT INTO workorder (customerId,datecreated,datemodified) VALUES ('" & CustomerID & "', now(),now())")
-                WorkOrderID = GetMaxWorkOrderID(CustomerID) 'Because it will be the most lates WorkOrder cretaed for the client. However, as system grows what if the client has orders being input by several people at once?
-                lblWorkOrderID.Text = WorkOrderID
-                MsgBox(UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments,datecreated,datemodified) VALUES ('" & lblWorkOrderID.Text & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "', now(), now())") & " Work Order Created and Work Order Item Added.", MsgBoxStyle.Information)
-                AddWorkOrder = False
-                AddWorkOrderItem = True
-                EditWorkOrderItem = True
-            ElseIf AddWorkOrderItem = True And EditWorkOrderItem = False Then
-                MsgBox(UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments,datecreated,datemodified) VALUES ('" & lblWorkOrderID.Text & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "', now(), now())") & " WorkOrder Item Added.", MsgBoxStyle.Information)
-            ElseIf EditWorkOrderItem = True And IsNothing(WorkOrderItemID) = False Then
-                MsgBox(UpdateRecord("UPDATE workorderitem SET serviceitem = '" & txtServiceItem.Text & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "',datemodified = now() WHERE workorderitemid = '" & WorkOrderItemID & "'") & " WorkOrder Item Updated.", MsgBoxStyle.Information)
-                AddWorkOrderItem = True
-            End If
-            LoadWorkOrderDetails(WorkOrderID)
-        Catch ex As Exception
+        If WorkOrderID = 0 And NewWorkOrder = True Then 'Create new work order and assign items to it.
+            SaveNewWorkOrder()
+            WorkOrderID = GetMaxWorkOrderID(CustomerID) 'Because it will be the most lates WorkOrder cretaed for the client. However, as system grows what if the client has orders being input by several people at once?
+            lblWorkOrderID.Text = "Order No: " & WorkOrderID
+            MsgBox(SaveNewWorkOrderItem() & " work order and service item Added.", MsgBoxStyle.Information)
+        ElseIf NewWorkOrderItem = True Then 'add a new service item to an existing order
+            MsgBox(SaveNewWorkOrderItem() & " service item added.", MsgBoxStyle.Information)
+        ElseIf NewWorkOrderItem = False And WorkOrderItemID <> 0 Then 'Update the service item selected
+            MsgBox(UpdateWorkOrderItem(WorkOrderItemID) & " service item updated.", MsgBoxStyle.Information)
+            btnAddItem.Text = "Add WorkOrder Item"
+        End If
 
-        End Try
+        NewWorkOrder = True
+        NewWorkOrderItem = True
+        ClearWorkOrderItemFields()
+        LoadWorkOrderDetails(WorkOrderID)
+
     End Sub
 
     Private Function GetMaxWorkOrderID(CustomerID) As Integer
-        Dim query As String = "SELECT Max(workorderId) FROM workorder WHERE customerId like '" & CustomerID & "'"
+        Dim query As String = "SELECT Max(workorderId) FROM workorder WHERE customerId like '" & CustomerID & "' AND valid = 1"
         Dim command As New MySqlCommand(query, connection)
         Dim MaxWorkorderId As String = ""
         command.CommandTimeout = 0
@@ -96,13 +165,19 @@ Public Class frmWorkOrder
     End Function
 
     Private Sub BtnDeleteWorkItem_Click(sender As Object, e As EventArgs) Handles btnDeleteWorkItem.Click
-        MsgBox("Item deleted from workorder xyz")
+        If NewWorkOrderItem = False And WorkOrderItemID <> 0 Then 'Delete the service item selected
+            MsgBox(ArchiveWorkOrderItem(WorkOrderItemID) & " service item deleted.", MsgBoxStyle.Information)
+        End If
+
+        NewWorkOrder = True
+        NewWorkOrderItem = True
+        ClearWorkOrderItemFields()
+        LoadWorkOrderDetails(WorkOrderID)
     End Sub
 
     Private Sub BtnSaveWorkOrder_Click(sender As Object, e As EventArgs) Handles btnSaveWorkOrder.Click
-        MsgBox("WorkOrder Saved. Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Exit / Void Workorder")
+        MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.")
         If MsgBoxResult.Yes Then
-
             MsgBox("WorkOrder Slip Printed")
             frmPayments.Show()
             Me.Close()
@@ -110,21 +185,19 @@ Public Class frmWorkOrder
             MsgBox("WorkOrder Slip Printed")
             Me.Close()
         End If
-        WorkOrderID = Nothing
-        WorkOrderItemID = Nothing
+        WorkOrderID = 0
+        WorkOrderItemID = 0
     End Sub
 
     Private Sub BtnVoidWorkOrder_Click(sender As Object, e As EventArgs) Handles btnVoidWorkOrder.Click
-        MsgBox("Do you want to void this Workorder?", MsgBoxStyle.YesNo, "Exit / Void Workorder")
+        MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder")
         If MsgBoxResult.Yes Then
-
-            MsgBox("Workorder has been Voided.")
-            Me.Close()
-        ElseIf MsgBoxResult.No Then
+            ArchiveWorkOrder(WorkOrderID)
+            MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
             Me.Close()
         End If
-        WorkOrderID = Nothing
-        WorkOrderItemID = Nothing
+        WorkOrderID = 0
+        WorkOrderItemID = 0
     End Sub
 
     Sub LoadCustomerDetails(searchString As String)
@@ -134,14 +207,9 @@ Public Class frmWorkOrder
 
         Dim query As String
         Try
-            If SelectCustomer = True Then
-                searchString = "%" & searchString & "%"
-                query = "Select custID ID,name Customer_Name,phone Customer_PhoneNumber from customer where phone like '" & searchString & "' OR lower(name) like lower('" & searchString & "') order by name ASC"
-            ElseIf AddCustomer = True Then
-                query = "Select custID ID,name Customer_Name,phone Customer_PhoneNumber from customer where custId = '" & CInt(searchString) & "' OR phone like '%" & searchString & "%' order by name ASC"
-            Else
-                query = "Select custID ID,name Customer_Name,phone Customer_PhoneNumber from customer where custId = '" & CInt(searchString) & "' OR phone like '%" & searchString & "%' OR lower(name) like lower('%" & searchString & "%') order by name ASC"
-            End If
+            searchString = searchString.ToLower
+            query = "Select custID ID,name 'Name',phone 'Phone Number' from customer where (phone like '%" & searchString & "%' OR lower(name) like lower('%" & searchString & "%') OR custId = '" & searchString & "') AND valid = 1 order by name ASC"
+
             Dim da As New MySqlDataAdapter(query, connection)
             da.GetFillParameters()
             Dim ds As New DataSet()
@@ -150,16 +218,50 @@ Public Class frmWorkOrder
             If ds.Tables(0).Rows.Count > 0 Then
                 'Load the Datagrid with the new dataset
                 dgvWorkOrderItems.DataSource = ds.Tables(0)
+                'dgvWorkOrderItems.Columns(0).Visible = False
+                CheckCustomer = True
             Else
-                MsgBox("The customer record does not exist in the database. Please review the search string used OR add the customer record to the database.", MsgBoxStyle.Exclamation)
+                MsgBox("The customer record does not exist in the database. Please SEARCH WITH A DIFFERENT name or phone number OR ADD THE CUSTOMER record to the database.", MsgBoxStyle.Exclamation)
             End If
-
 
             'Clean Up
             ds.Dispose()
             da.Dispose()
             connection.Close()
 
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Information)
+            connection.Close()
+        End Try
+    End Sub
+
+    Sub LoadWorkOrders(custId As Integer)
+        'Clear the Datagrid first
+        dgvWorkOrderItems.DataSource = Nothing
+        dgvWorkOrderItems.Rows.Clear()
+
+        Dim query As String
+        Try
+            'If NewWorkOrderItem = False Then
+            query = "Select workorderId 'Order Num.',datecreated 'Order Date' from workorder where customerId = '" & custId & "' AND valid = 1 order by workorderId ASC"
+            Dim da As New MySqlDataAdapter(query, connection)
+            da.GetFillParameters()
+            Dim ds As New DataSet()
+            da.Fill(ds)
+
+            If ds.Tables(0).Rows.Count > 0 Then
+                'Load the Datagrid with the new dataset
+                dgvWorkOrderItems.DataSource = ds.Tables(0)
+
+            Else
+                MsgBox("The Work Order record does not exist in the database. Please review the search string used OR add the Work Order record to the database.", MsgBoxStyle.Exclamation)
+            End If
+
+            'Clean Up
+            ds.Dispose()
+            da.Dispose()
+            connection.Close()
+            'End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Information)
             connection.Close()
@@ -173,8 +275,8 @@ Public Class frmWorkOrder
 
         Dim query As String
         Try
-            If AddWorkOrderItem = True Or EditWorkOrderItem = True Then
-                query = "Select workorderId 'Order ID',serviceitem 'Service Item',quantity 'Quantity',comments 'Comments' from workorderitem where workorderId = '" & workorderId & "' order by serviceitem ASC"
+            If NewWorkOrderItem = True Or NewWorkOrderItem = False Then
+                query = "Select workorderitemid 'Service Item ID',  workorderId 'Order ID',serviceitem 'Service Item',quantity 'Quantity',comments 'Comments' from workorderitem where workorderId = '" & workorderId & "' AND valid = 1 order by serviceitem ASC"
                 Dim da As New MySqlDataAdapter(query, connection)
                 da.GetFillParameters()
                 Dim ds As New DataSet()
@@ -183,7 +285,9 @@ Public Class frmWorkOrder
                 If ds.Tables(0).Rows.Count > 0 Then
                     'Load the Datagrid with the new dataset
                     dgvWorkOrderItems.DataSource = ds.Tables(0)
-                    EditWorkOrderItem = True
+                    'dgvWorkOrderItems.Columns(0).Visible = False
+                    'dgvWorkOrderItems.Columns(1).Visible = False
+
                 Else
                     MsgBox("The Work Order Item record does not exist in the database. Please review the search string used OR add the Work Order Item record to the database.", MsgBoxStyle.Exclamation)
                 End If
@@ -199,42 +303,11 @@ Public Class frmWorkOrder
         End Try
     End Sub
 
-    Sub LoadWorkOrders(custId As Integer)
-        'Clear the Datagrid first
-        dgvWorkOrderItems.DataSource = Nothing
-        dgvWorkOrderItems.Rows.Clear()
 
-        Dim query As String
-        Try
-            'If EditWorkOrderItem = True Then
-            query = "Select workorderId 'Order ID',datecreated 'Date' from workorder where customerId = '" & custId & "' order by workorderId ASC"
-            Dim da As New MySqlDataAdapter(query, connection)
-                da.GetFillParameters()
-                Dim ds As New DataSet()
-                da.Fill(ds)
-
-                If ds.Tables(0).Rows.Count > 0 Then
-                'Load the Datagrid with the new dataset
-                dgvWorkOrderItems.DataSource = ds.Tables(0)
-                EditWorkOrder = True
-            Else
-                MsgBox("The Work Order record does not exist in the database. Please review the search string used OR add the Work Order record to the database.", MsgBoxStyle.Exclamation)
-            End If
-
-                'Clean Up
-                ds.Dispose()
-                da.Dispose()
-                connection.Close()
-            'End If
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information)
-            connection.Close()
-        End Try
-    End Sub
 
     Sub PopulateCustomerFields(recID As Integer)
         'Populate the CustName and Phone Number Fields
-        Dim query As String = "SELECT custId,name,phone from customer WHERE custId like '" & recID & "'"
+        Dim query As String = "SELECT custId,name,phone from customer WHERE custId like '" & recID & "' AND valid = 1"
         Dim command As New MySqlCommand(query, connection) With {
             .CommandTimeout = 0
         }
@@ -244,8 +317,9 @@ Public Class frmWorkOrder
             readah = command.ExecuteReader
             While readah.Read()
                 CustomerID = IIf(readah.IsDBNull(0), String.Empty, readah.GetString(0))
-                txtCustName.Text = IIf(readah.IsDBNull(0), String.Empty, readah.GetString(1))
-                txtCustPhoneNum.Text = IIf(readah.IsDBNull(1), String.Empty, readah.GetString(2))
+                txtCustName.Text = IIf(readah.IsDBNull(1), String.Empty, readah.GetString(1))
+                txtCustPhoneNum.Text = IIf(readah.IsDBNull(2), String.Empty, readah.GetString(2))
+                EndCustomerSelection()
             End While
             readah.Close()
             connection.Close()
@@ -261,7 +335,7 @@ Public Class frmWorkOrder
     End Sub
 
     Sub PopulateWorkOrderItemFields(workOrderItemId As Integer)
-        Dim query As String = "SELECT workorderid,workorderitemid,serviceitem,quantity,comments from workorderitem WHERE workorderitemid like '" & workOrderItemId & "'"
+        Dim query As String = "SELECT workorderid,workorderitemid,serviceitem,quantity,comments from workorderitem WHERE workorderitemid like '" & workOrderItemId & "' AND valid = 1"
         Dim command As New MySqlCommand(query, connection) With {
             .CommandTimeout = 0
         }
@@ -275,7 +349,8 @@ Public Class frmWorkOrder
                 txtServiceItem.Text = IIf(readah.IsDBNull(2), String.Empty, readah.GetString(2))
                 txtQuantity.Text = IIf(readah.IsDBNull(3), String.Empty, readah.GetString(3))
                 txtComments.Text = IIf(readah.IsDBNull(4), String.Empty, readah.GetString(4))
-                lblWorkOrderID.Text = WorkOrderID
+                lblWorkOrderID.Text = "Order No: " & WorkOrderID
+
             End While
             readah.Close()
             connection.Close()
@@ -285,65 +360,68 @@ Public Class frmWorkOrder
             Exit Sub
         End Try
     End Sub
-    Sub AddNewCustomer(name As String, phone As String)
 
-        Try
-            MsgBox(UpdateRecord("Insert INTO customer (name,phone) VALUES('" & name & "', '" & phone & "')") & " records saved!", MsgBoxStyle.Information)
-
-        Catch ex As Exception
-            connection.Close()
-            MsgBox(ex.Message, MsgBoxStyle.Information)
-            Exit Sub
-        End Try
-
-    End Sub
 
     Private Sub BgvWorkOrderItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvWorkOrderItems.CellDoubleClick
-        If SelectCustomer = True Or AddCustomer = True Then
-            PopulateCustomerFields(dgvWorkOrderItems.CurrentRow.Cells(0).Value)
+        WorkOrderID = Nothing
+        WorkOrderItemID = Nothing
+
+        If CheckCustomer = True Then
+            Dim currRecId As Integer = dgvWorkOrderItems.CurrentRow.Cells(0).Value
+            PopulateCustomerFields(currRecId)
             'Now we are done with selecting/adding the customer. Switch the Grids Use to WorkOrder Items
-            EndCustomerSelection()
-            If EditWorkOrder = True Then
+
+            If NewWorkOrder = False Then
                 LoadWorkOrders(CustomerID)
             End If
-        ElseIf EditWorkOrder = True And (EditWorkOrderItem = True Or AddWorkOrderItem = True) Then
+        ElseIf NewWorkOrder = False Then
             WorkOrderID = CInt(dgvWorkOrderItems.CurrentRow.Cells(0).Value)
             LoadWorkOrderDetails(WorkOrderID)
-            lblWorkOrderID.Text = WorkOrderID
-
-            EditWorkOrder = False
-            AddWorkOrderItem = True
-            EditWorkOrderItem = False
-        ElseIf EditWorkOrder = False And (EditWorkOrderItem = True Or AddWorkOrderItem = True) Then
-            WorkOrderItemID = CInt(dgvWorkOrderItems.CurrentRow.Cells(1).Value)
+            lblWorkOrderID.Text = "Order No: " & WorkOrderID
+            NewWorkOrder = True
+            NewWorkOrderItem = True
+        ElseIf NewWorkOrder = True Then
+            WorkOrderItemID = CInt(dgvWorkOrderItems.CurrentRow.Cells(0).Value)
+            WorkOrderID = CInt(dgvWorkOrderItems.CurrentRow.Cells(1).Value)
             PopulateWorkOrderItemFields(WorkOrderItemID)
             btnAddItem.Text = "Edit WorkOrder Item"
-
-            AddWorkOrderItem = False
-            EditWorkOrderItem = True
+            NewWorkOrderItem = False
         End If
 
     End Sub
     Sub EndCustomerSelection()
-        SelectCustomer = False
-        AddCustomer = False
-        txtSearchCustomer.Text = ""
-        txtSearchCustomer.Enabled = False
-        cbxAddNewCust.Enabled = False
+        CheckCustomer = False
+        'txtSearchCustomer.Enabled = False
+        txtSearchCustomer.Visible = False
         btnSearchCustomer.Visible = False
+        'cbxAddNewCust.Enabled = False
+        cbxAddNewCust.Visible = False
         btnAddCustomer.Visible = False
         txtCustName.Enabled = False
         txtCustPhoneNum.Enabled = False
+        txtSearchCustomer.Text = ""
+        txtSearchCustomer.Visible = False
+
     End Sub
     Private Sub BtnSearchCustomer_Click(sender As Object, e As EventArgs) Handles btnSearchCustomer.Click
         LoadCustomerDetails(txtSearchCustomer.Text)
     End Sub
 
     Private Sub BtnAddCustomer_Click(sender As Object, e As EventArgs) Handles btnAddCustomer.Click
-        AddNewCustomer(txtCustName.Text, txtCustPhoneNum.Text)
-        LoadCustomerDetails(txtCustPhoneNum.Text)
-        PopulateCustomerFields(CInt(dgvWorkOrderItems.Rows(0).Cells(0).Value))
-        EndCustomerSelection()
+        Try
+            Dim CustName, CustPhoneNumber As String
+            CustName = txtCustName.Text
+            CustPhoneNumber = txtCustPhoneNum.Text
+            MsgBox(AddNewCustomer(CustName, CustPhoneNumber) & " Customer added.", MsgBoxStyle.Information)
+            LoadCustomerDetails(CustPhoneNumber)
+            CustomerID = CInt(dgvWorkOrderItems.Rows(0).Cells(0).Value)
+            PopulateCustomerFields(CustomerID)
+
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Information)
+            Exit Sub
+        End Try
 
     End Sub
 

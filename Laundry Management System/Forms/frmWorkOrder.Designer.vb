@@ -89,7 +89,7 @@ Partial Class frmWorkOrder
         '
         'btnAddCustomer
         '
-        Me.btnAddCustomer.Location = New System.Drawing.Point(997, 47)
+        Me.btnAddCustomer.Location = New System.Drawing.Point(997, 44)
         Me.btnAddCustomer.Name = "btnAddCustomer"
         Me.btnAddCustomer.Size = New System.Drawing.Size(116, 29)
         Me.btnAddCustomer.TabIndex = 9
@@ -330,7 +330,7 @@ Partial Class frmWorkOrder
         Me.btnVoidWorkOrder.Name = "btnVoidWorkOrder"
         Me.btnVoidWorkOrder.Size = New System.Drawing.Size(500, 102)
         Me.btnVoidWorkOrder.TabIndex = 1
-        Me.btnVoidWorkOrder.Text = "Cancel"
+        Me.btnVoidWorkOrder.Text = "Cancel/Delete Work Order"
         Me.btnVoidWorkOrder.UseVisualStyleBackColor = False
         '
         'btnSaveWorkOrder

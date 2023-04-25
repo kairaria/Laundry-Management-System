@@ -1,25 +1,19 @@
 Imports MySql.Data.MySqlClient
+Imports System.Drawing.Printing
 
 Public Class frmWorkOrder
 
 
-    Private CustomerID, WorkOrderID, WorkOrderItemID As Integer
-
+    Private CustomerID, WorkOrderID, WorkOrderItemID, longpaper As Integer
+    Private WithEvents PD As New PrintDocument
+    Private PPD As New PrintPreviewDialog
 
 
     Private Sub CbxAddNewCust_CheckedChanged(sender As Object, e As EventArgs) Handles cbxAddNewCust.CheckedChanged
         dgvWorkOrderItems.DataSource = Nothing
         dgvWorkOrderItems.Rows.Clear()
 
-        If cbxAddNewCust.Checked Then
-            txtCustName.Enabled = True
-            txtCustPhoneNum.Enabled = True
-            txtSearchCustomer.Enabled = False
-            btnAddCustomer.Visible = True
-            btnSearchCustomer.Visible = False
-            txtSearchCustomer.Text = ""
-            CheckCustomer = True
-        Else
+        If Not cbxAddNewCust.Checked Then
             txtCustName.Enabled = False
             txtCustPhoneNum.Enabled = False
             txtSearchCustomer.Enabled = True
@@ -27,13 +21,21 @@ Public Class frmWorkOrder
             btnSearchCustomer.Visible = True
             txtSearchCustomer.Text = "Search By Name or Phone Number"
             CheckCustomer = False
+        Else
+            txtCustName.Enabled = True
+            txtCustPhoneNum.Enabled = True
+            txtSearchCustomer.Enabled = False
+            btnAddCustomer.Visible = True
+            btnSearchCustomer.Visible = False
+            txtSearchCustomer.Text = ""
+            CheckCustomer = True
         End If
     End Sub
 
     Private Sub FrmWorkOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MdiParent = frmMain
         txtSearchCustomer.Enabled = True
-        Me.Refresh()
+        Refresh()
         If NewWorkOrder Then
             btnSaveWorkOrder.Text = "Save and Print WorkOrder"
         ElseIf NewWorkOrder = False Then
@@ -46,13 +48,35 @@ Public Class frmWorkOrder
         End If
     End Sub
     Function AddNewCustomer(name As String, phone As String)
+        Dim query As String = "SELECT custId from customer WHERE phone like '" & txtCustPhoneNum.Text & "'"
+        Dim command As New MySqlCommand(query, connection) With {
+            .CommandTimeout = 0
+        }
+        Dim readah As MySqlDataReader
         Try
-            Return UpdateRecord("Insert INTO customer (name,phone) VALUES('" & name & "', '" & phone & "')")
-        Catch ex As Exception
+            connection.Open()
+            readah = command.ExecuteReader
+
+            Dim dt As DataTable = New DataTable()
+            dt.Load(readah)
+            Dim readahRows As Integer = dt.Rows.Count
+            readah.Close()
             connection.Close()
+
+            If readahRows > 0 Then
+                MsgBox("There exists a customer with this Phone number. ", MsgBoxStyle.Information)
+                Return 0
+                Exit Function
+            Else
+                Return UpdateRecord("Insert INTO customer (name,phone) VALUES('" & name & "', '" & phone & "')")
+            End If
+
+        Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
             Return 0
+            Exit Function
         End Try
+
     End Function
 
     Function SaveNewWorkOrder() As String
@@ -68,7 +92,7 @@ Public Class frmWorkOrder
 
     Function SaveNewWorkOrderItem() As String
         Try
-            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitem,quantity,comments) VALUES ('" & WorkOrderID & "', '" & txtServiceItem.Text & "', '" & CInt(txtQuantity.Text) & "','" & txtComments.Text & "')")
+            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitemid,quantity,charge,comments,colour) VALUES ('" & WorkOrderID & "', '" & cboServiceItem.SelectedIndex & "', '" & CInt(txtQuantity.Text) & "','" & cboServiceItem.SelectedValue(1) * CInt(txtQuantity.Text) & "','" & txtComments.Text & "','" & txtColour.BackColor.ToArgb & "')")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -78,7 +102,7 @@ Public Class frmWorkOrder
 
     Function UpdateWorkOrderItem(WorkOrderItemId As Integer) As String
         Try
-            Return UpdateRecord("UPDATE workorderitem SET serviceitem = '" & txtServiceItem.Text & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "' WHERE workorderitemid = '" & WorkOrderItemId & "'")
+            Return UpdateRecord("UPDATE workorderitem SET serviceitemid = '" & cboServiceItem.SelectedIndex & "',quantity = '" & txtQuantity.Text & "',comments = '" & txtComments.Text & "',colour='" & txtColour.BackColor.ToArgb & "' WHERE workorderitemid = '" & WorkOrderItemId & "'")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -114,7 +138,7 @@ Public Class frmWorkOrder
     End Sub
 
     Sub ClearWorkOrderItemFields()
-        txtServiceItem.Text = ""
+        cboServiceItem.Text = ""
         txtQuantity.Text = ""
         txtComments.Text = ""
         WorkOrderItemID = 0
@@ -122,16 +146,36 @@ Public Class frmWorkOrder
 
     Private Sub BtnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
 
+        Dim SavedWorkOrderCount As Integer
         If WorkOrderID = 0 And NewWorkOrder = True Then 'Create new work order and assign items to it.
             SaveNewWorkOrder()
             WorkOrderID = GetMaxWorkOrderID(CustomerID) 'Because it will be the most lates WorkOrder cretaed for the client. However, as system grows what if the client has orders being input by several people at once?
             lblWorkOrderID.Text = "Order No: " & WorkOrderID
-            MsgBox(SaveNewWorkOrderItem() & " work order and service item Added.", MsgBoxStyle.Information)
+            SavedWorkOrderCount = SaveNewWorkOrderItem()
+            If SavedWorkOrderCount > 0 Then
+                MsgBox(SavedWorkOrderCount & " work order and service item Added.", MsgBoxStyle.Information)
+            Else
+                cboServiceItem.Select()
+                Exit Sub
+            End If
+
         ElseIf NewWorkOrderItem = True Then 'add a new service item to an existing order
-            MsgBox(SaveNewWorkOrderItem() & " service item added.", MsgBoxStyle.Information)
+            SavedWorkOrderCount = SaveNewWorkOrderItem()
+            If SavedWorkOrderCount > 0 Then
+                MsgBox(SavedWorkOrderCount & " service item Added.", MsgBoxStyle.Information)
+            Else
+                cboServiceItem.Select()
+                Exit Sub
+            End If
         ElseIf NewWorkOrderItem = False And WorkOrderItemID <> 0 Then 'Update the service item selected
-            MsgBox(UpdateWorkOrderItem(WorkOrderItemID) & " service item updated.", MsgBoxStyle.Information)
-            btnAddItem.Text = "Add WorkOrder Item"
+            SavedWorkOrderCount = UpdateWorkOrderItem(WorkOrderItemID)
+            If SavedWorkOrderCount > 0 Then
+                MsgBox(SavedWorkOrderCount & " service item Updated.", MsgBoxStyle.Information)
+                btnAddItem.Text = "Add WorkOrder Item"
+            Else
+                cboServiceItem.Select()
+                Exit Sub
+            End If
         End If
 
         NewWorkOrder = True
@@ -178,31 +222,40 @@ Public Class frmWorkOrder
     End Sub
 
     Private Sub BtnSaveWorkOrder_Click(sender As Object, e As EventArgs) Handles btnSaveWorkOrder.Click
-        MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.")
-        If MsgBoxResult.Yes Then
-            MsgBox("WorkOrder Slip Printed")
-            frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
-            frmPayments.Show()
-            Me.Close()
+        If WorkOrderID <> 0 Then
+            MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.")
+            'Print_WorkOrder()
+
+            If MsgBoxResult.Yes Then
+                MsgBox("WorkOrder Slip Printed")
+                frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
+                frmPayments.Show()
+                Close()
+            Else
+                MsgBox("WorkOrder Slip Printed")
+                Close()
+            End If
+            WorkOrderID = 0
+            WorkOrderItemID = 0
         Else
-            MsgBox("WorkOrder Slip Printed")
-            Me.Close()
+            MsgBox("No workorder ID selected to save/print", MsgBoxStyle.Information)
         End If
-        WorkOrderID = 0
-        WorkOrderItemID = 0
+
     End Sub
 
     Private Sub BtnVoidWorkOrder_Click(sender As Object, e As EventArgs) Handles btnVoidWorkOrder.Click
-        If WorkOrderID <> 0 Then
-            MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder")
-            If MsgBoxResult.Yes Then
-                ArchiveWorkOrder(WorkOrderID)
-                MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
-                Me.Close()
-            End If
-        Else
-            Me.Close()
-        End If
+        Select Case WorkOrderID
+            Case Is <> 0
+                MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder")
+                If MsgBoxResult.Yes Then
+                    ArchiveWorkOrder(WorkOrderID)
+                    MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+                    Close()
+                End If
+
+            Case Else
+                Close()
+        End Select
         WorkOrderID = 0
         WorkOrderItemID = 0
     End Sub
@@ -218,6 +271,7 @@ Public Class frmWorkOrder
             query = "Select custID ID,name 'Name',phone 'Phone Number' from customer where (phone like '%" & searchString & "%' OR lower(name) like lower('%" & searchString & "%') OR custId = '" & searchString & "') AND valid = 1 order by name ASC"
 
             Dim da As New MySqlDataAdapter(query, connection)
+            connection.Open()
             da.GetFillParameters()
             Dim ds As New DataSet()
             da.Fill(ds)
@@ -234,12 +288,13 @@ Public Class frmWorkOrder
             'Clean Up
             ds.Dispose()
             da.Dispose()
-            connection.Close()
 
         Catch ex As Exception
+
             MsgBox(ex.Message, MsgBoxStyle.Information)
-            connection.Close()
+
         End Try
+        connection.Close()
     End Sub
 
     Sub LoadWorkOrders(custId As Integer)
@@ -283,7 +338,7 @@ Public Class frmWorkOrder
         Dim query As String
         Try
             If NewWorkOrderItem = True Or NewWorkOrderItem = False Then
-                query = "Select workorderitemid 'Service Item ID',  workorderId 'Order ID',serviceitem 'Service Item',quantity 'Quantity',comments 'Comments' from workorderitem where workorderId = '" & workorderId & "' AND valid = 1 order by serviceitem ASC"
+                query = "SELECT woi.workorderid 'WorkOrder ID',woi.workorderitemid 'WorkOrderItem ID.',si.serviceitemName 'Service Item',woi.charge 'Charge',woi.quantity 'Quantity',woi.comments 'Comments',woi.colour 'Colour' from workorderitem woi LEFT JOIN serviceitem si ON si.serviceItemID = woi.serviceitemID WHERE woi.workorderid like '" & workorderId & "' AND woi.valid = 1 order by si.serviceitem ASC;"
                 Dim da As New MySqlDataAdapter(query, connection)
                 da.GetFillParameters()
                 Dim ds As New DataSet()
@@ -342,7 +397,7 @@ Public Class frmWorkOrder
     End Sub
 
     Sub PopulateWorkOrderItemFields(workOrderItemId As Integer)
-        Dim query As String = "SELECT workorderid,workorderitemid,serviceitem,quantity,comments from workorderitem WHERE workorderitemid like '" & workOrderItemId & "' AND valid = 1"
+        Dim query As String = "SELECT woi.workorderid,woi.workorderitemid,si.serviceitemName,woi.charge,woi.quantity,woi.comments,woi.colour from workorderitem woi LEFT JOIN serviceitem si ON si.serviceItemID = woi.serviceitemID WHERE woi.workorderitemid like '" & workOrderItemId & "' AND woi.valid = 1;"
         Dim command As New MySqlCommand(query, connection) With {
             .CommandTimeout = 0
         }
@@ -353,11 +408,11 @@ Public Class frmWorkOrder
             While readah.Read()
                 WorkOrderID = IIf(readah.IsDBNull(0), String.Empty, readah.GetString(0))
                 workOrderItemId = IIf(readah.IsDBNull(1), String.Empty, readah.GetString(1))
-                txtServiceItem.Text = IIf(readah.IsDBNull(2), String.Empty, readah.GetString(2))
-                txtQuantity.Text = IIf(readah.IsDBNull(3), String.Empty, readah.GetString(3))
-                txtComments.Text = IIf(readah.IsDBNull(4), String.Empty, readah.GetString(4))
+                cboServiceItem.Text = IIf(readah.IsDBNull(2), String.Empty, readah.GetString(2))
+                txtQuantity.Text = IIf(readah.IsDBNull(4), String.Empty, readah.GetString(4))
+                txtComments.Text = IIf(readah.IsDBNull(5), String.Empty, readah.GetString(5))
                 lblWorkOrderID.Text = "Order No: " & WorkOrderID
-
+                txtColour.BackColor = IIf(readah.IsDBNull(6), String.Empty, Color.FromArgb(readah.GetInt32(6)))
             End While
             readah.Close()
             connection.Close()
@@ -379,6 +434,8 @@ Public Class frmWorkOrder
 
             If NewWorkOrder = False Then
                 LoadWorkOrders(CustomerID)
+            Else
+                pnWorkOrderItem.Enabled = True
             End If
         ElseIf NewWorkOrder = False Then
             WorkOrderID = CInt(dgvWorkOrderItems.CurrentRow.Cells(0).Value)
@@ -387,6 +444,7 @@ Public Class frmWorkOrder
             NewWorkOrder = True
             NewWorkOrderItem = True
         ElseIf NewWorkOrder = True Then
+            pnWorkOrderItem.Enabled = True
             WorkOrderItemID = CInt(dgvWorkOrderItems.CurrentRow.Cells(0).Value)
             WorkOrderID = CInt(dgvWorkOrderItems.CurrentRow.Cells(1).Value)
             PopulateWorkOrderItemFields(WorkOrderItemID)
@@ -418,10 +476,18 @@ Public Class frmWorkOrder
             Dim CustName, CustPhoneNumber As String
             CustName = txtCustName.Text
             CustPhoneNumber = txtCustPhoneNum.Text
-            MsgBox(AddNewCustomer(CustName, CustPhoneNumber) & " Customer added.", MsgBoxStyle.Information)
-            LoadCustomerDetails(CustPhoneNumber)
-            CustomerID = CInt(dgvWorkOrderItems.Rows(0).Cells(0).Value)
-            PopulateCustomerFields(CustomerID)
+            Dim NewCustCount As Integer = AddNewCustomer(CustName, CustPhoneNumber)
+            If NewCustCount > 0 Then
+                MsgBox(NewCustCount & " Customer added.", MsgBoxStyle.Information)
+                LoadCustomerDetails(CustPhoneNumber)
+                CustomerID = CInt(dgvWorkOrderItems.Rows(0).Cells(0).Value)
+                PopulateCustomerFields(CustomerID)
+                pnWorkOrderItem.Enabled = True
+            Else
+                txtCustPhoneNum.Text = ""
+                txtCustPhoneNum.Select()
+            End If
+
 
         Catch ex As Exception
             connection.Close()
@@ -464,5 +530,147 @@ Public Class frmWorkOrder
             txtQuantity.Text = ""
         End If
     End Sub
+
+    Sub changelongpaper()
+        Dim rowcount As Integer
+        longpaper = 0
+        rowcount = dgvWorkOrderItems.Rows.Count
+        longpaper = rowcount * 15
+        longpaper = longpaper + 240
+    End Sub
+
+
+    Sub Print_WorkOrder()
+        changelongpaper()
+        PPD.Document = PD
+        PPD.ShowDialog()
+    End Sub
+
+    Private Sub PD_BeginPrint(sender As Object, e As PrintEventArgs) Handles PD.BeginPrint
+        Dim pagesetup As New PageSettings
+        pagesetup.PaperSize = New PaperSize("Custom", 250, 500) 'fixed size
+        'pagesetup.PaperSize = New PaperSize("Custom", 250, longpaper)
+        PD.DefaultPageSettings = pagesetup
+    End Sub
+
+    Private Sub PD_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PD.PrintPage
+        Dim f8 As New Font("Calibri", 8, FontStyle.Regular)
+        Dim f10 As New Font("Calibri", 10, FontStyle.Regular)
+        Dim f10b As New Font("Calibri", 10, FontStyle.Bold)
+        Dim f14 As New Font("Calibri", 14, FontStyle.Bold)
+
+        Dim leftmargin As Integer = PD.DefaultPageSettings.Margins.Left
+        Dim centermargin As Integer = PD.DefaultPageSettings.PaperSize.Width / 2
+        Dim rightmargin As Integer = PD.DefaultPageSettings.PaperSize.Width
+
+        'font alignment
+        Dim right As New StringFormat
+        Dim center As New StringFormat
+
+        right.Alignment = StringAlignment.Far
+        center.Alignment = StringAlignment.Center
+
+        Dim line As String
+        line = "****************************************************************"
+
+        'range from top
+        'logo
+        ''Dim logoImage As Image = My.Resources.ResourceManager.GetObject("logo")
+        ''e.Graphics.DrawImage(logoImage, CInt((e.PageBounds.Width - 150) / 2), 5, 150, 35)
+
+        'e.Graphics.DrawImage(logoImage, 0, 250, 150, 50)
+        'e.Graphics.DrawImage(logoImage, CInt((e.PageBounds.Width - logoImage.Width) / 2), CInt((e.PageBounds.Height - logoImage.Height) / 2), logoImage.Width, logoImage.Height)
+
+        'e.Graphics.DrawString("Store :", f14, Brushes.Black, centermargin, 5, center)
+        e.Graphics.DrawString("HillSide DryCleaners", f10, Brushes.Black, centermargin, 40, center)
+        e.Graphics.DrawString("Ngong Town", f10, Brushes.Black, centermargin, 40, center)
+        e.Graphics.DrawString("Tel +254722233374", f10, Brushes.Black, centermargin, 55, center)
+
+        e.Graphics.DrawString("Invoice ID", f8, Brushes.Black, 0, 75)
+        e.Graphics.DrawString(":", f8, Brushes.Black, 50, 75)
+        e.Graphics.DrawString("DRW8555RE", f8, Brushes.Black, 70, 75)
+
+        e.Graphics.DrawString("Cashier", f8, Brushes.Black, 0, 85)
+        e.Graphics.DrawString(":", f8, Brushes.Black, 50, 85)
+        e.Graphics.DrawString("Steve Jobs", f8, Brushes.Black, 70, 85)
+
+        e.Graphics.DrawString("08/17/2021 | 15.34", f8, Brushes.Black, 0, 95)
+        'DetailHeader
+        e.Graphics.DrawString("Qty", f8, Brushes.Black, 0, 110)
+        e.Graphics.DrawString("Item", f8, Brushes.Black, 25, 110)
+        e.Graphics.DrawString("Price", f8, Brushes.Black, 180, 110, right)
+        e.Graphics.DrawString("Total", f8, Brushes.Black, rightmargin, 110, right)
+        '
+        e.Graphics.DrawString(line, f8, Brushes.Black, 0, 120)
+
+        Dim height As Integer 'DGV Position
+        Dim i As Long
+        dgvWorkOrderItems.AllowUserToAddRows = False
+        'If dgvWorkOrderItems.CurrentCell.Value Is Nothing Then
+        '    Exit Sub
+        'Else
+        For row As Integer = 0 To dgvWorkOrderItems.RowCount - 1
+            height += 15
+            e.Graphics.DrawString(dgvWorkOrderItems.Rows(row).Cells(1).Value.ToString, f8, Brushes.Black, 0, 115 + height)
+            e.Graphics.DrawString(dgvWorkOrderItems.Rows(row).Cells(0).Value.ToString, f8, Brushes.Black, 25, 115 + height)
+            i = dgvWorkOrderItems.Rows(row).Cells(2).Value
+            dgvWorkOrderItems.Rows(row).Cells(2).Value = Format(i, "##,##0")
+            e.Graphics.DrawString(dgvWorkOrderItems.Rows(row).Cells(2).Value.ToString, f8, Brushes.Black, 180, 115 + height, right)
+
+            'totalprice
+            Dim totalprice As Long
+            totalprice = Val(dgvWorkOrderItems.Rows(row).Cells(1).Value * dgvWorkOrderItems.Rows(row).Cells(2).Value)
+            e.Graphics.DrawString(totalprice.ToString("##,##0"), f8, Brushes.Black, rightmargin, 115 + height, right)
+            '
+
+        Next
+        'End If
+
+        Dim height2 As Integer
+        height2 = 145 + height
+        sumprice() 'call sub
+        e.Graphics.DrawString(line, f8, Brushes.Black, 0, height2)
+        e.Graphics.DrawString("Total: " & Format(t_price, "##,##0"), f10b, Brushes.Black, rightmargin, 10 + height2, right)
+        e.Graphics.DrawString(t_qty, f10b, Brushes.Black, 0, 10 + height2)
+        'Barcode
+        'Dim gbarcode As New MessagingToolkit.Barcode.BarcodeEncoder
+        Try
+            'Dim barcodeimage As Image
+            'barcodeimage = New Bitmap(gbarcode.Encode(MessagingToolkit.Barcode.BarcodeFormat.Code128, "DRW8555RE"))
+            'e.Graphics.DrawImage(barcodeimage, CInt((e.PageBounds.Width - 150) / 2), 35 + height2, 150, 35)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        e.Graphics.DrawString("~ Thanks for shopping ~", f10, Brushes.Black, centermargin, 70 + height2, center)
+        e.Graphics.DrawString("~ Nosware Store ~", f10, Brushes.Black, centermargin, 85 + height2, center)
+    End Sub
+
+    Private Sub txtColour_click(sender As Object, e As EventArgs) Handles txtColour.Click
+        If clrDgItemColor.ShowDialog <> DialogResult.Cancel Then
+            txtColour.BackColor = clrDgItemColor.Color
+            Dim p As Control
+            p = CType(sender, TextBox).Parent
+            p.SelectNextControl(ActiveControl, True, True, True, True)
+        End If
+    End Sub
+
+    Dim t_price As Long
+    Dim t_qty As Long
+    Sub sumprice()
+        Dim countprice As Long = 0
+        For rowitem As Long = 0 To dgvWorkOrderItems.RowCount - 1
+            countprice = countprice + Val(dgvWorkOrderItems.Rows(rowitem).Cells(2).Value * dgvWorkOrderItems.Rows(rowitem).Cells(1).Value)
+        Next
+        t_price = countprice
+        Dim countqty As Long = 0
+        For rowitem As Long = 0 To dgvWorkOrderItems.RowCount - 1
+            countqty = countqty + dgvWorkOrderItems.Rows(rowitem).Cells(1).Value
+        Next
+        t_qty = countqty
+    End Sub
+
+    'Private Sub BTREFRESH_Click(sender As Object, e As EventArgs) Handles BTREFRESH.Click
+    '   dgvWorkOrderItems.AllowUserToAddRows = True
+    'End Sub
 
 End Class

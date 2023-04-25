@@ -4,14 +4,14 @@
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub cbxPaymentMode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxPaymentMode.SelectedIndexChanged
         If cbxPaymentMode.SelectedText = "M-Pesa" Then
             MsgBox("Remember to record the M-Pesa Message ID at the beginning of the message.")
             txtTransactionID.Enabled = True
-            Me.Refresh()
+            Refresh()
         Else
             txtTransactionID.Enabled = False
         End If

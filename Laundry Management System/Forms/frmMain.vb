@@ -1,5 +1,3 @@
-
-
 Public Class frmMain
 
     Sub MDIBGColor()
@@ -8,14 +6,14 @@ Public Class frmMain
 
         ' Loop through all of the form's controls looking
         ' for the control of type MdiClient.
-        For Each ctl In Me.Controls
+        For Each ctl In Controls
             Try
 
                 ' Attempt to cast the control to type MdiClient.
                 ctlMDI = CType(ctl, MdiClient)
 
                 ' Set the BackColor of the MdiClient control.
-                ctlMDI.BackColor = Me.BackColor
+                ctlMDI.BackColor = BackColor
 
             Catch exc As InvalidCastException
                 ' Catch and ignore the error if casting failed.
@@ -27,14 +25,14 @@ Public Class frmMain
     Private WithEvents mdiContainer As MdiClient
 
     Private Sub mdiContainer_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles mdiContainer.Paint
-        e.Graphics.DrawString(Format(Now, "F"), Me.Font, Brushes.Black, ((e.ClipRectangle.X) + 10), ((e.ClipRectangle.Y + e.ClipRectangle.Height) - 30))
+        e.Graphics.DrawString(Format(Now, "F"), Font, Brushes.Black, ((e.ClipRectangle.X) + 10), ((e.ClipRectangle.Y + e.ClipRectangle.Height) - 30))
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MDIBGColor()
-        For Each ctl As Control In Me.Controls
+        For Each ctl As Control In Controls
             If TypeOf ctl Is MdiClient Then
-                Me.mdiContainer = DirectCast(ctl, MdiClient)
+                mdiContainer = DirectCast(ctl, MdiClient)
                 Exit For
             End If
         Next

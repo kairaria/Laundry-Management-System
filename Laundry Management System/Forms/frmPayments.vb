@@ -15,28 +15,30 @@ Public Class frmPayments
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If WorkOrderIdFromWorkOrder <> 0 Then
-            WorkOrderId = WorkOrderIdFromWorkOrder
-            MsgBox(SaveNewPayment(WorkOrderId) & " payment recorded.", MsgBoxStyle.Information)
-        Else
-            WorkOrderId = CInt(txtWorkOrder.Text)
-            MsgBox(SaveNewPayment(WorkOrderId) & " payment recorded.", MsgBoxStyle.Information)
-        End If
+        Select Case WorkOrderIdFromWorkOrder
+            Case Is <> 0
+                WorkOrderId = WorkOrderIdFromWorkOrder
+                MsgBox(SaveNewPayment(WorkOrderId) & " payment recorded.", MsgBoxStyle.Information)
+            Case Else
+                WorkOrderId = CInt(txtWorkOrder.Text)
+                MsgBox(SaveNewPayment(WorkOrderId) & " payment recorded.", MsgBoxStyle.Information)
+        End Select
 
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub cbxPaymentMode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxPaymentMode.SelectedIndexChanged
-        If cbxPaymentMode.SelectedText = "M-Pesa" Then
-            MsgBox("Remember to record the M-Pesa Message ID at the beginning of the message.")
-            txtTransactionID.Enabled = True
-            Me.Refresh()
-        Else
-            txtTransactionID.Enabled = False
-        End If
+        Select Case cbxPaymentMode.SelectedText
+            Case "M-Pesa"
+                MsgBox("Remember to record the M-Pesa Message ID at the beginning of the message.")
+                txtTransactionID.Enabled = True
+                Refresh()
+            Case Else
+                txtTransactionID.Enabled = False
+        End Select
     End Sub
 
     Sub LoadPaymentDetails(searchString As String)

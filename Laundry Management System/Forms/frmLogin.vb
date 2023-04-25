@@ -21,7 +21,7 @@
         If ctr >= 3 Then
             tmrLogin.Stop()
             frmMain.Show()
-            Me.Hide()
+            Hide()
             ctr = 0
             Panel1.Visible = True
             lblWelcome.Text = ""

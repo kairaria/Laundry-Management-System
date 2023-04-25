@@ -86,6 +86,7 @@
       <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.DirectoryServices" />
@@ -118,6 +119,12 @@
     <Compile Include="Forms\frmExpense.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmExpensesReport.Designer.vb">
+      <DependentUpon>frmExpensesReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmExpensesReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
@@ -136,6 +143,12 @@
     <Compile Include="Forms\frmPayments.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmRevenueReport.Designer.vb">
+      <DependentUpon>frmRevenueReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRevenueReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmSplashscreen.Designer.vb">
       <DependentUpon>frmSplashscreen.vb</DependentUpon>
     </Compile>
@@ -146,6 +159,12 @@
       <DependentUpon>frmWorkOrder.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmWorkOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmWorkOrdersReport.Designer.vb">
+      <DependentUpon>frmWorkOrdersReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmWorkOrdersReport.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\gaillard.vb" />

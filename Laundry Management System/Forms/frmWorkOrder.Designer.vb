@@ -42,7 +42,6 @@ Partial Class frmWorkOrder
         Me.lblWorkOrderID = New System.Windows.Forms.Label()
         Me.btnDeleteWorkItem = New System.Windows.Forms.Button()
         Me.lblServiceItem = New System.Windows.Forms.Label()
-        Me.txtServiceItem = New System.Windows.Forms.TextBox()
         Me.btnAddItem = New System.Windows.Forms.Button()
         Me.lblQty = New System.Windows.Forms.Label()
         Me.txtComments = New System.Windows.Forms.TextBox()
@@ -89,13 +88,13 @@ Partial Class frmWorkOrder
         '
         Me.spltCWorkOrder.Panel2.Controls.Add(Me.spltCWorkOrderItem)
         Me.spltCWorkOrder.Panel2.Padding = New System.Windows.Forms.Padding(10)
-        Me.spltCWorkOrder.Size = New System.Drawing.Size(1126, 617)
+        Me.spltCWorkOrder.Size = New System.Drawing.Size(1345, 620)
         Me.spltCWorkOrder.SplitterDistance = 96
         Me.spltCWorkOrder.TabIndex = 0
         '
         'btnAddCustomer
         '
-        Me.btnAddCustomer.Location = New System.Drawing.Point(997, 44)
+        Me.btnAddCustomer.Location = New System.Drawing.Point(1181, 47)
         Me.btnAddCustomer.Name = "btnAddCustomer"
         Me.btnAddCustomer.Size = New System.Drawing.Size(116, 29)
         Me.btnAddCustomer.TabIndex = 9
@@ -125,7 +124,7 @@ Partial Class frmWorkOrder
         'txtCustPhoneNum
         '
         Me.txtCustPhoneNum.Enabled = False
-        Me.txtCustPhoneNum.Location = New System.Drawing.Point(676, 44)
+        Me.txtCustPhoneNum.Location = New System.Drawing.Point(786, 47)
         Me.txtCustPhoneNum.Name = "txtCustPhoneNum"
         Me.txtCustPhoneNum.Size = New System.Drawing.Size(296, 32)
         Me.txtCustPhoneNum.TabIndex = 5
@@ -134,7 +133,7 @@ Partial Class frmWorkOrder
         '
         Me.lblPhoneNumber.AutoSize = True
         Me.lblPhoneNumber.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPhoneNumber.Location = New System.Drawing.Point(515, 47)
+        Me.lblPhoneNumber.Location = New System.Drawing.Point(625, 50)
         Me.lblPhoneNumber.Name = "lblPhoneNumber"
         Me.lblPhoneNumber.Size = New System.Drawing.Size(155, 23)
         Me.lblPhoneNumber.TabIndex = 4
@@ -145,7 +144,7 @@ Partial Class frmWorkOrder
         Me.txtCustName.Enabled = False
         Me.txtCustName.Location = New System.Drawing.Point(194, 44)
         Me.txtCustName.Name = "txtCustName"
-        Me.txtCustName.Size = New System.Drawing.Size(284, 32)
+        Me.txtCustName.Size = New System.Drawing.Size(421, 32)
         Me.txtCustName.TabIndex = 3
         '
         'lblCustName
@@ -161,7 +160,7 @@ Partial Class frmWorkOrder
         'cbxAddNewCust
         '
         Me.cbxAddNewCust.AutoSize = True
-        Me.cbxAddNewCust.Location = New System.Drawing.Point(882, 11)
+        Me.cbxAddNewCust.Location = New System.Drawing.Point(1066, 13)
         Me.cbxAddNewCust.Name = "cbxAddNewCust"
         Me.cbxAddNewCust.Size = New System.Drawing.Size(231, 27)
         Me.cbxAddNewCust.TabIndex = 1
@@ -183,8 +182,8 @@ Partial Class frmWorkOrder
         '
         Me.spltCWorkOrderItem.Panel2.Controls.Add(Me.pnWorkOrderItem)
         Me.spltCWorkOrderItem.Panel2.Controls.Add(Me.pnSaveWorkOrder)
-        Me.spltCWorkOrderItem.Size = New System.Drawing.Size(1106, 497)
-        Me.spltCWorkOrderItem.SplitterDistance = 202
+        Me.spltCWorkOrderItem.Size = New System.Drawing.Size(1325, 500)
+        Me.spltCWorkOrderItem.SplitterDistance = 203
         Me.spltCWorkOrderItem.TabIndex = 0
         '
         'dgvWorkOrderItems
@@ -193,8 +192,7 @@ Partial Class frmWorkOrder
         Me.dgvWorkOrderItems.AllowUserToDeleteRows = False
         Me.dgvWorkOrderItems.AllowUserToResizeColumns = False
         Me.dgvWorkOrderItems.AllowUserToResizeRows = False
-        Me.dgvWorkOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvWorkOrderItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvWorkOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvWorkOrderItems.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
@@ -221,7 +219,7 @@ Partial Class frmWorkOrder
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvWorkOrderItems.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvWorkOrderItems.RowTemplate.Height = 28
-        Me.dgvWorkOrderItems.Size = New System.Drawing.Size(1106, 202)
+        Me.dgvWorkOrderItems.Size = New System.Drawing.Size(1325, 203)
         Me.dgvWorkOrderItems.TabIndex = 0
         '
         'pnWorkOrderItem
@@ -232,7 +230,6 @@ Partial Class frmWorkOrder
         Me.pnWorkOrderItem.Controls.Add(Me.lblWorkOrderID)
         Me.pnWorkOrderItem.Controls.Add(Me.btnDeleteWorkItem)
         Me.pnWorkOrderItem.Controls.Add(Me.lblServiceItem)
-        Me.pnWorkOrderItem.Controls.Add(Me.txtServiceItem)
         Me.pnWorkOrderItem.Controls.Add(Me.btnAddItem)
         Me.pnWorkOrderItem.Controls.Add(Me.lblQty)
         Me.pnWorkOrderItem.Controls.Add(Me.txtComments)
@@ -242,15 +239,19 @@ Partial Class frmWorkOrder
         Me.pnWorkOrderItem.Location = New System.Drawing.Point(0, 3)
         Me.pnWorkOrderItem.Name = "pnWorkOrderItem"
         Me.pnWorkOrderItem.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnWorkOrderItem.Size = New System.Drawing.Size(1077, 165)
+        Me.pnWorkOrderItem.Size = New System.Drawing.Size(1325, 165)
         Me.pnWorkOrderItem.TabIndex = 10
         '
         'cboServiceItem
         '
+        Me.cboServiceItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboServiceItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboServiceItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cboServiceItem.FormattingEnabled = True
         Me.cboServiceItem.Location = New System.Drawing.Point(162, 42)
         Me.cboServiceItem.Name = "cboServiceItem"
         Me.cboServiceItem.Size = New System.Drawing.Size(390, 31)
+        Me.cboServiceItem.Sorted = True
         Me.cboServiceItem.TabIndex = 11
         '
         'lblColour
@@ -289,7 +290,7 @@ Partial Class frmWorkOrder
         Me.btnDeleteWorkItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeleteWorkItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDeleteWorkItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnDeleteWorkItem.Location = New System.Drawing.Point(844, 86)
+        Me.btnDeleteWorkItem.Location = New System.Drawing.Point(1107, 86)
         Me.btnDeleteWorkItem.Name = "btnDeleteWorkItem"
         Me.btnDeleteWorkItem.Size = New System.Drawing.Size(180, 51)
         Me.btnDeleteWorkItem.TabIndex = 7
@@ -307,13 +308,6 @@ Partial Class frmWorkOrder
         Me.lblServiceItem.TabIndex = 1
         Me.lblServiceItem.Text = "Service Item"
         '
-        'txtServiceItem
-        '
-        Me.txtServiceItem.Location = New System.Drawing.Point(600, 29)
-        Me.txtServiceItem.Name = "txtServiceItem"
-        Me.txtServiceItem.Size = New System.Drawing.Size(393, 32)
-        Me.txtServiceItem.TabIndex = 2
-        '
         'btnAddItem
         '
         Me.btnAddItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
@@ -322,7 +316,7 @@ Partial Class frmWorkOrder
         Me.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAddItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddItem.ForeColor = System.Drawing.Color.Yellow
-        Me.btnAddItem.Location = New System.Drawing.Point(619, 86)
+        Me.btnAddItem.Location = New System.Drawing.Point(1107, 22)
         Me.btnAddItem.Name = "btnAddItem"
         Me.btnAddItem.Size = New System.Drawing.Size(180, 51)
         Me.btnAddItem.TabIndex = 6
@@ -373,7 +367,7 @@ Partial Class frmWorkOrder
         Me.pnSaveWorkOrder.Location = New System.Drawing.Point(3, 174)
         Me.pnSaveWorkOrder.Name = "pnSaveWorkOrder"
         Me.pnSaveWorkOrder.Padding = New System.Windows.Forms.Padding(15, 10, 15, 10)
-        Me.pnSaveWorkOrder.Size = New System.Drawing.Size(1074, 122)
+        Me.pnSaveWorkOrder.Size = New System.Drawing.Size(1322, 122)
         Me.pnSaveWorkOrder.TabIndex = 8
         '
         'btnVoidWorkOrder
@@ -385,9 +379,9 @@ Partial Class frmWorkOrder
         Me.btnVoidWorkOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnVoidWorkOrder.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnVoidWorkOrder.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnVoidWorkOrder.Location = New System.Drawing.Point(559, 10)
+        Me.btnVoidWorkOrder.Location = New System.Drawing.Point(707, 10)
         Me.btnVoidWorkOrder.Name = "btnVoidWorkOrder"
-        Me.btnVoidWorkOrder.Size = New System.Drawing.Size(500, 102)
+        Me.btnVoidWorkOrder.Size = New System.Drawing.Size(600, 102)
         Me.btnVoidWorkOrder.TabIndex = 1
         Me.btnVoidWorkOrder.Text = "Cancel/Delete Work Order"
         Me.btnVoidWorkOrder.UseVisualStyleBackColor = False
@@ -403,7 +397,7 @@ Partial Class frmWorkOrder
         Me.btnSaveWorkOrder.ForeColor = System.Drawing.Color.DodgerBlue
         Me.btnSaveWorkOrder.Location = New System.Drawing.Point(15, 10)
         Me.btnSaveWorkOrder.Name = "btnSaveWorkOrder"
-        Me.btnSaveWorkOrder.Size = New System.Drawing.Size(507, 102)
+        Me.btnSaveWorkOrder.Size = New System.Drawing.Size(600, 102)
         Me.btnSaveWorkOrder.TabIndex = 0
         Me.btnSaveWorkOrder.Text = "Save WorkOrder"
         Me.btnSaveWorkOrder.UseVisualStyleBackColor = False
@@ -417,7 +411,7 @@ Partial Class frmWorkOrder
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1146, 637)
+        Me.ClientSize = New System.Drawing.Size(1365, 640)
         Me.Controls.Add(Me.spltCWorkOrder)
         Me.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -459,7 +453,6 @@ Partial Class frmWorkOrder
     Friend WithEvents lblComments As Label
     Friend WithEvents txtQuantity As TextBox
     Friend WithEvents lblQty As Label
-    Friend WithEvents txtServiceItem As TextBox
     Friend WithEvents lblServiceItem As Label
     Friend WithEvents lblWorkOrderID As Label
     Friend WithEvents btnDeleteWorkItem As Button

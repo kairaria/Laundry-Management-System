@@ -37,6 +37,7 @@ Partial Class frmMain
         Me.CustomersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ServiceItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LogOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,7 +48,7 @@ Partial Class frmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(12, 4, 0, 4)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1924, 42)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1898, 42)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -67,6 +68,7 @@ Partial Class frmMain
         '
         'EditWorkOrderToolStripMenuItem
         '
+        Me.EditWorkOrderToolStripMenuItem.Enabled = False
         Me.EditWorkOrderToolStripMenuItem.Name = "EditWorkOrderToolStripMenuItem"
         Me.EditWorkOrderToolStripMenuItem.Size = New System.Drawing.Size(416, 34)
         Me.EditWorkOrderToolStripMenuItem.Text = "Edit WorkOrder"
@@ -112,7 +114,7 @@ Partial Class frmMain
         '
         'SettingsToolStripMenuItem
         '
-        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BizProfileToolStripMenuItem, Me.CustomersToolStripMenuItem, Me.UsersToolStripMenuItem, Me.ServiceItemsToolStripMenuItem})
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BizProfileToolStripMenuItem, Me.CustomersToolStripMenuItem, Me.UsersToolStripMenuItem, Me.ServiceItemsToolStripMenuItem, Me.LogOutToolStripMenuItem})
         Me.SettingsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
         Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 34)
@@ -142,12 +144,18 @@ Partial Class frmMain
         Me.ServiceItemsToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
         Me.ServiceItemsToolStripMenuItem.Text = "Service Items"
         '
+        'LogOutToolStripMenuItem
+        '
+        Me.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem"
+        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.LogOutToolStripMenuItem.Text = "Log Out"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(19.0!, 39.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.MediumAquamarine
-        Me.ClientSize = New System.Drawing.Size(1924, 967)
+        Me.ClientSize = New System.Drawing.Size(1898, 1024)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Century Gothic", 16.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IsMdiContainer = True
@@ -179,4 +187,5 @@ Partial Class frmMain
     Friend WithEvents ServiceItemsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReportsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents WorkOrderPickupDeliveryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LogOutToolStripMenuItem As ToolStripMenuItem
 End Class

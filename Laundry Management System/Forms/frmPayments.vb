@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+
 Public Class frmPayments
 
     Public WorkOrderIdFromWorkOrder As Integer
@@ -8,7 +9,7 @@ Public Class frmPayments
         MdiParent = frmMain
 
         If WorkOrderIdFromWorkOrder <> 0 Then
-            txtOrderInvoice.Text = WorkOrderIdFromWorkOrder
+            txtSearch.Text = WorkOrderIdFromWorkOrder
             LoadPaymentDetails(WorkOrderIdFromWorkOrder)
             txtWorkOrder.Text = WorkOrderIdFromWorkOrder
         End If
@@ -31,7 +32,7 @@ Public Class frmPayments
     End Sub
 
     Private Sub cbxPaymentMode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxPaymentMode.SelectedIndexChanged
-        Select Case cbxPaymentMode.SelectedText
+        Select Case cbxPaymentMode.Text
             Case "M-Pesa"
                 MsgBox("Remember to record the M-Pesa Message ID at the beginning of the message.")
                 txtTransactionID.Enabled = True
@@ -50,12 +51,14 @@ Public Class frmPayments
         Try
             searchString = searchString.ToLower
             'query = "Select custID ID,name 'Name',phone 'Phone Number' from customer where (phone like '%" & searchString & "%' OR lower(name) like lower('%" & searchString & "%') OR custId = '" & searchString & "') AND valid = 1 order by name ASC"
-            query = "Select w.workorderId 'Order Num.', w.datecreated 'Order Date', i.invoice_no 'Invoice No', i.datecreated 'Invoice Date', i.amount 'Invoice Amount', pr.`mode` 'Payment Mode', pr.reference 'Transaction ID', pr.amount 'Payment Amount', c.name 'Name', c.phone 'Phone' 
+            query = "Select w.workorderId 'Order Num.', w.datecreated 'Order Date', c.name 'Name', c.phone 'Phone',SUM(wi.charge) 'Total Charge', i.invoice_no 'Invoice No', i.datecreated 'Invoice Date', i.amount 'Invoice Amount', pr.`mode` 'Payment Mode', pr.reference 'Transaction ID', pr.amount 'Payment Amount', SUM(wi.charge) - SUM(pr.amount) 'Amount Due'
                 from workorder w
                 LEFT JOIN invoice i ON (i.workorderId = w.workorderId) AND (i.valid = 1)
-                LEFT JOIN customer c ON (c.custID = i.custid) AND (c.valid = 1)
-                LEFT JOIN payment_received pr ON (pr.workorderid = w.workorderId) AND (pr.invoice_no = i.invoice_no) AND (pr.valid = 1)
-                where (c.phone like '%" & searchString & "%' OR lower(c.name) like lower('%" & searchString & "%') OR w.workorderId = '%" & searchString & "%' OR i.invoice_no like '%" & searchString & "%') AND w.valid = 1 
+                LEFT JOIN customer c ON (c.custID = w.customerid) AND (c.valid = 1)
+                LEFT JOIN payment_received pr ON (pr.workorderid = w.workorderId) OR (pr.invoice_no = i.invoice_no) AND (pr.valid = 1)
+                LEFT JOIN workorderitem wi ON (wi.workorderId = w.workorderId) AND (wi.valid = 1)
+                where (c.phone like '%" & searchString & "%' OR lower(c.name) like '%" & searchString & "%' OR w.workorderId = '" & searchString & "' OR i.invoice_no like '%" & searchString & "%') AND w.valid = 1 
+                    GROUP BY w.workorderId
                 order by w.workorderId, i.invoiceId, c.custID, pr.payId ASC;"
 
             Dim da As New MySqlDataAdapter(query, connection)
@@ -83,7 +86,7 @@ Public Class frmPayments
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim searchString As String = txtOrderInvoice.Text
+        Dim searchString As String = txtSearch.Text
         LoadPaymentDetails(searchString)
     End Sub
 
@@ -123,5 +126,15 @@ Public Class frmPayments
         If System.Text.RegularExpressions.Regex.IsMatch(txtAmount.Text, "[^ 0-9]") Then
             txtAmount.Text = ""
         End If
+    End Sub
+
+    Private Sub dgvPayments_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPayments.CellContentClick
+        txtSearch.Text = ""
+        txtWorkOrder.Text = IIf(dgvPayments.CurrentRow.Cells(0).Value.ToString.Length = 0, 0, CInt(dgvPayments.CurrentRow.Cells(0).Value))
+        WorkOrderId = CInt(txtWorkOrder.Text)
+        txtInvoiceNum.Text = IIf(dgvPayments.CurrentRow.Cells(5).Value.ToString.Length = 0, String.Empty, CInt(dgvPayments.CurrentRow.Cells(5).Value))
+        cbxPaymentMode.SelectedText = IIf(dgvPayments.CurrentRow.Cells(8).Value.ToString.Length = 0, cbxPaymentMode.Items(0).ToString, dgvPayments.CurrentRow.Cells(8).Value.ToString)
+        txtTransactionID = IIf(dgvPayments.CurrentRow.Cells(9).Value.ToString.Length = 0, String.Empty, dgvPayments.CurrentRow.Cells(9).Value.ToString)
+        txtAmount = IIf(dgvPayments.CurrentRow.Cells(4).Value.ToString.Length = 0, 0, CInt(dgvPayments.CurrentRow.Cells(4).Value))
     End Sub
 End Class

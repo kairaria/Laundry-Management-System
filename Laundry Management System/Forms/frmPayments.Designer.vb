@@ -37,7 +37,7 @@ Partial Class frmPayments
         Me.lblWorkOrderID = New System.Windows.Forms.Label()
         Me.gbxSearch = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
-        Me.txtOrderInvoice = New System.Windows.Forms.TextBox()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.dgvPayments = New System.Windows.Forms.DataGridView()
         Me.pnlTitle = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -68,8 +68,8 @@ Partial Class frmPayments
         Me.spltCPayments.Panel2.Controls.Add(Me.dgvPayments)
         Me.spltCPayments.Panel2.Controls.Add(Me.pnlTitle)
         Me.spltCPayments.Panel2.Padding = New System.Windows.Forms.Padding(10)
-        Me.spltCPayments.Size = New System.Drawing.Size(1047, 497)
-        Me.spltCPayments.SplitterDistance = 348
+        Me.spltCPayments.Size = New System.Drawing.Size(1345, 500)
+        Me.spltCPayments.SplitterDistance = 351
         Me.spltCPayments.TabIndex = 0
         '
         'pnPayments
@@ -133,9 +133,9 @@ Partial Class frmPayments
         Me.lblTransactionID.AutoSize = True
         Me.lblTransactionID.Location = New System.Drawing.Point(9, 162)
         Me.lblTransactionID.Name = "lblTransactionID"
-        Me.lblTransactionID.Size = New System.Drawing.Size(146, 23)
+        Me.lblTransactionID.Size = New System.Drawing.Size(138, 23)
         Me.lblTransactionID.TabIndex = 7
-        Me.lblTransactionID.Text = "Transaction ID"
+        Me.lblTransactionID.Text = "Mpesa Code"
         '
         'txtAmount
         '
@@ -205,7 +205,7 @@ Partial Class frmPayments
         'gbxSearch
         '
         Me.gbxSearch.Controls.Add(Me.btnSearch)
-        Me.gbxSearch.Controls.Add(Me.txtOrderInvoice)
+        Me.gbxSearch.Controls.Add(Me.txtSearch)
         Me.gbxSearch.Location = New System.Drawing.Point(12, 12)
         Me.gbxSearch.Name = "gbxSearch"
         Me.gbxSearch.Size = New System.Drawing.Size(332, 136)
@@ -224,23 +224,29 @@ Partial Class frmPayments
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
-        'txtOrderInvoice
+        'txtSearch
         '
-        Me.txtOrderInvoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.txtOrderInvoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtOrderInvoice.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOrderInvoice.Location = New System.Drawing.Point(18, 36)
-        Me.txtOrderInvoice.Name = "txtOrderInvoice"
-        Me.txtOrderInvoice.Size = New System.Drawing.Size(296, 27)
-        Me.txtOrderInvoice.TabIndex = 1
+        Me.txtSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.txtSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtSearch.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(18, 36)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(296, 27)
+        Me.txtSearch.TabIndex = 1
         '
         'dgvPayments
         '
+        Me.dgvPayments.AllowUserToAddRows = False
+        Me.dgvPayments.AllowUserToDeleteRows = False
+        Me.dgvPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPayments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvPayments.Location = New System.Drawing.Point(11, 69)
+        Me.dgvPayments.MultiSelect = False
         Me.dgvPayments.Name = "dgvPayments"
+        Me.dgvPayments.ReadOnly = True
         Me.dgvPayments.RowTemplate.Height = 28
-        Me.dgvPayments.Size = New System.Drawing.Size(681, 425)
+        Me.dgvPayments.Size = New System.Drawing.Size(966, 425)
         Me.dgvPayments.TabIndex = 1
         '
         'pnlTitle
@@ -251,7 +257,7 @@ Partial Class frmPayments
         Me.pnlTitle.Location = New System.Drawing.Point(11, 9)
         Me.pnlTitle.Name = "pnlTitle"
         Me.pnlTitle.Padding = New System.Windows.Forms.Padding(5)
-        Me.pnlTitle.Size = New System.Drawing.Size(681, 54)
+        Me.pnlTitle.Size = New System.Drawing.Size(966, 54)
         Me.pnlTitle.TabIndex = 0
         '
         'lblTitle
@@ -259,7 +265,7 @@ Partial Class frmPayments
         Me.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.lblTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblTitle.ForeColor = System.Drawing.Color.MediumAquamarine
-        Me.lblTitle.Location = New System.Drawing.Point(204, 5)
+        Me.lblTitle.Location = New System.Drawing.Point(347, 5)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(270, 34)
         Me.lblTitle.TabIndex = 0
@@ -270,7 +276,7 @@ Partial Class frmPayments
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1067, 517)
+        Me.ClientSize = New System.Drawing.Size(1365, 520)
         Me.Controls.Add(Me.spltCPayments)
         Me.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -302,7 +308,7 @@ Partial Class frmPayments
     Friend WithEvents txtWorkOrder As TextBox
     Friend WithEvents lblWorkOrderID As Label
     Friend WithEvents gbxSearch As GroupBox
-    Friend WithEvents txtOrderInvoice As TextBox
+    Friend WithEvents txtSearch As TextBox
     Friend WithEvents dgvPayments As DataGridView
     Friend WithEvents btnClose As Button
     Friend WithEvents btnSave As Button

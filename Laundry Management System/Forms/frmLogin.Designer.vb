@@ -24,15 +24,15 @@ Partial Class frmLogin
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnLogin = New System.Windows.Forms.Button()
+        Me.btnClose = New System.Windows.Forms.Button()
+        Me.lblValidate = New System.Windows.Forms.Label()
+        Me.txtPword = New System.Windows.Forms.TextBox()
+        Me.txtUname = New System.Windows.Forms.TextBox()
+        Me.lblPassword = New System.Windows.Forms.Label()
+        Me.lblUsername = New System.Windows.Forms.Label()
         Me.pnTitle = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
-        Me.lblUsername = New System.Windows.Forms.Label()
-        Me.lblPassword = New System.Windows.Forms.Label()
-        Me.txtUname = New System.Windows.Forms.TextBox()
-        Me.txtPword = New System.Windows.Forms.TextBox()
-        Me.lblValidate = New System.Windows.Forms.Label()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnLogin = New System.Windows.Forms.Button()
         Me.lblWelcome = New System.Windows.Forms.Label()
         Me.tmrLogin = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
@@ -56,6 +56,93 @@ Partial Class frmLogin
         Me.Panel1.Size = New System.Drawing.Size(645, 440)
         Me.Panel1.TabIndex = 0
         '
+        'btnLogin
+        '
+        Me.btnLogin.BackColor = System.Drawing.Color.Transparent
+        Me.btnLogin.FlatAppearance.BorderColor = System.Drawing.Color.Lime
+        Me.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnLogin.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLogin.ForeColor = System.Drawing.Color.Lime
+        Me.btnLogin.Location = New System.Drawing.Point(321, 342)
+        Me.btnLogin.Name = "btnLogin"
+        Me.btnLogin.Size = New System.Drawing.Size(114, 54)
+        Me.btnLogin.TabIndex = 3
+        Me.btnLogin.Text = "Login"
+        Me.btnLogin.UseVisualStyleBackColor = False
+        '
+        'btnClose
+        '
+        Me.btnClose.BackColor = System.Drawing.Color.Transparent
+        Me.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClose.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClose.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnClose.Location = New System.Drawing.Point(137, 342)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(114, 54)
+        Me.btnClose.TabIndex = 4
+        Me.btnClose.Text = "Close"
+        Me.btnClose.UseVisualStyleBackColor = False
+        '
+        'lblValidate
+        '
+        Me.lblValidate.AutoSize = True
+        Me.lblValidate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblValidate.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblValidate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblValidate.Location = New System.Drawing.Point(92, 87)
+        Me.lblValidate.Name = "lblValidate"
+        Me.lblValidate.Size = New System.Drawing.Size(435, 23)
+        Me.lblValidate.TabIndex = 5
+        Me.lblValidate.Text = "*Missing/Invalid Username and/or Password"
+        Me.lblValidate.Visible = False
+        '
+        'txtPword
+        '
+        Me.txtPword.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtPword.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPword.ForeColor = System.Drawing.Color.MediumAquamarine
+        Me.txtPword.Location = New System.Drawing.Point(101, 275)
+        Me.txtPword.Name = "txtPword"
+        Me.txtPword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPword.Size = New System.Drawing.Size(415, 46)
+        Me.txtPword.TabIndex = 2
+        Me.txtPword.UseSystemPasswordChar = True
+        '
+        'txtUname
+        '
+        Me.txtUname.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.txtUname.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUname.ForeColor = System.Drawing.Color.MediumAquamarine
+        Me.txtUname.Location = New System.Drawing.Point(101, 166)
+        Me.txtUname.Name = "txtUname"
+        Me.txtUname.Size = New System.Drawing.Size(415, 46)
+        Me.txtUname.TabIndex = 1
+        '
+        'lblPassword
+        '
+        Me.lblPassword.AutoSize = True
+        Me.lblPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblPassword.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPassword.ForeColor = System.Drawing.SystemColors.Control
+        Me.lblPassword.Location = New System.Drawing.Point(102, 234)
+        Me.lblPassword.Name = "lblPassword"
+        Me.lblPassword.Size = New System.Drawing.Size(160, 38)
+        Me.lblPassword.TabIndex = 7
+        Me.lblPassword.Text = "Password"
+        '
+        'lblUsername
+        '
+        Me.lblUsername.AutoSize = True
+        Me.lblUsername.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblUsername.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUsername.ForeColor = System.Drawing.SystemColors.Control
+        Me.lblUsername.Location = New System.Drawing.Point(89, 121)
+        Me.lblUsername.Name = "lblUsername"
+        Me.lblUsername.Size = New System.Drawing.Size(173, 38)
+        Me.lblUsername.TabIndex = 6
+        Me.lblUsername.Text = "Username"
+        '
         'pnTitle
         '
         Me.pnTitle.BackColor = System.Drawing.Color.Teal
@@ -76,91 +163,6 @@ Partial Class frmLogin
         Me.lblTitle.Size = New System.Drawing.Size(103, 38)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Login"
-        '
-        'lblUsername
-        '
-        Me.lblUsername.AutoSize = True
-        Me.lblUsername.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblUsername.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUsername.ForeColor = System.Drawing.SystemColors.Control
-        Me.lblUsername.Location = New System.Drawing.Point(89, 121)
-        Me.lblUsername.Name = "lblUsername"
-        Me.lblUsername.Size = New System.Drawing.Size(173, 38)
-        Me.lblUsername.TabIndex = 6
-        Me.lblUsername.Text = "Username"
-        '
-        'lblPassword
-        '
-        Me.lblPassword.AutoSize = True
-        Me.lblPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblPassword.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPassword.ForeColor = System.Drawing.SystemColors.Control
-        Me.lblPassword.Location = New System.Drawing.Point(102, 234)
-        Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(160, 38)
-        Me.lblPassword.TabIndex = 7
-        Me.lblPassword.Text = "Password"
-        '
-        'txtUname
-        '
-        Me.txtUname.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtUname.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUname.ForeColor = System.Drawing.Color.MediumAquamarine
-        Me.txtUname.Location = New System.Drawing.Point(101, 166)
-        Me.txtUname.Name = "txtUname"
-        Me.txtUname.Size = New System.Drawing.Size(415, 46)
-        Me.txtUname.TabIndex = 1
-        '
-        'txtPword
-        '
-        Me.txtPword.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.txtPword.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPword.ForeColor = System.Drawing.Color.MediumAquamarine
-        Me.txtPword.Location = New System.Drawing.Point(101, 275)
-        Me.txtPword.Name = "txtPword"
-        Me.txtPword.Size = New System.Drawing.Size(415, 46)
-        Me.txtPword.TabIndex = 2
-        '
-        'lblValidate
-        '
-        Me.lblValidate.AutoSize = True
-        Me.lblValidate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblValidate.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValidate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.lblValidate.Location = New System.Drawing.Point(92, 87)
-        Me.lblValidate.Name = "lblValidate"
-        Me.lblValidate.Size = New System.Drawing.Size(435, 23)
-        Me.lblValidate.TabIndex = 5
-        Me.lblValidate.Text = "*Missing/Invalid Username and/or Password"
-        Me.lblValidate.Visible = False
-        '
-        'btnClose
-        '
-        Me.btnClose.BackColor = System.Drawing.Color.Transparent
-        Me.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnClose.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClose.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(137, 342)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(114, 54)
-        Me.btnClose.TabIndex = 4
-        Me.btnClose.Text = "Close"
-        Me.btnClose.UseVisualStyleBackColor = False
-        '
-        'btnLogin
-        '
-        Me.btnLogin.BackColor = System.Drawing.Color.Transparent
-        Me.btnLogin.FlatAppearance.BorderColor = System.Drawing.Color.Lime
-        Me.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnLogin.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLogin.ForeColor = System.Drawing.Color.Lime
-        Me.btnLogin.Location = New System.Drawing.Point(321, 342)
-        Me.btnLogin.Name = "btnLogin"
-        Me.btnLogin.Size = New System.Drawing.Size(114, 54)
-        Me.btnLogin.TabIndex = 3
-        Me.btnLogin.Text = "Login"
-        Me.btnLogin.UseVisualStyleBackColor = False
         '
         'lblWelcome
         '

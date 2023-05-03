@@ -1,5 +1,7 @@
 Public Class frmMain
 
+    Private WithEvents mdiContainer As MdiClient
+
     Sub MDIBGColor()
         Dim ctl As Control
         Dim ctlMDI As MdiClient
@@ -22,12 +24,6 @@ Public Class frmMain
 
     End Sub
 
-    Private WithEvents mdiContainer As MdiClient
-
-    Private Sub mdiContainer_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles mdiContainer.Paint
-        e.Graphics.DrawString(Format(Now, "F"), Font, Brushes.Black, ((e.ClipRectangle.X) + 10), ((e.ClipRectangle.Y + e.ClipRectangle.Height) - 30))
-    End Sub
-
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MDIBGColor()
         For Each ctl As Control In Controls
@@ -36,6 +32,8 @@ Public Class frmMain
                 Exit For
             End If
         Next
+        LogOutToolStripMenuItem.Enabled = False
+        AdminMode = False
     End Sub
 
     Private Sub NewWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWorkOrderToolStripMenuItem.Click
@@ -71,5 +69,29 @@ Public Class frmMain
         NewWorkOrderItem = True
         WorkOrderPickup = False
         frmWorkOrder.Show()
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+        If AdminMode = False Then
+            frmLogin.Show()
+        End If
+    End Sub
+
+    Private Sub LogOutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogOutToolStripMenuItem.Click
+        If AdminMode = True Then
+            MsgBox("Confirm you want to log off Admin/Reportviewer Mode.", MsgBoxStyle.YesNo, "Exit Admin/ReportViewer Mode")
+            If MsgBoxResult.Yes Then
+                SetAdminMode(False)
+                LogOutToolStripMenuItem.Enabled = False
+            ElseIf MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
+    End Sub
+
+    Private Sub ReportsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportsToolStripMenuItem.Click
+        If ReportViewer = False Then
+            frmLogin.Show()
+        End If
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿Module modWoms
-    Public CheckCustomer, NewWorkOrder, NewWorkOrderItem, WorkOrderPickup, AdminMode, ReportViewer As Boolean
+    Public CheckCustomer, NewWorkOrder, NewWorkOrderItem, WorkOrderPickup, AdminMode, ReportViewer, PartialCollection As Boolean
     Public connStr As String = "Database=gaillard_woms;Data Source=127.0.0.1;User Id=root;Password=Allblacks@7;Allow User Variables=True;"
 
 

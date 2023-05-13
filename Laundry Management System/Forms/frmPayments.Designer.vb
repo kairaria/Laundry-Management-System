@@ -24,6 +24,8 @@ Partial Class frmPayments
     Private Sub InitializeComponent()
         Me.spltCPayments = New System.Windows.Forms.SplitContainer()
         Me.pnPayments = New System.Windows.Forms.Panel()
+        Me.txtAmountDue = New System.Windows.Forms.TextBox()
+        Me.lblAmountDue = New System.Windows.Forms.Label()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.txtTransactionID = New System.Windows.Forms.TextBox()
@@ -74,6 +76,8 @@ Partial Class frmPayments
         '
         'pnPayments
         '
+        Me.pnPayments.Controls.Add(Me.txtAmountDue)
+        Me.pnPayments.Controls.Add(Me.lblAmountDue)
         Me.pnPayments.Controls.Add(Me.btnClose)
         Me.pnPayments.Controls.Add(Me.btnSave)
         Me.pnPayments.Controls.Add(Me.txtTransactionID)
@@ -89,6 +93,24 @@ Partial Class frmPayments
         Me.pnPayments.Name = "pnPayments"
         Me.pnPayments.Size = New System.Drawing.Size(331, 350)
         Me.pnPayments.TabIndex = 1
+        '
+        'txtAmountDue
+        '
+        Me.txtAmountDue.Enabled = False
+        Me.txtAmountDue.Location = New System.Drawing.Point(143, 43)
+        Me.txtAmountDue.Name = "txtAmountDue"
+        Me.txtAmountDue.Size = New System.Drawing.Size(172, 24)
+        Me.txtAmountDue.TabIndex = 12
+        '
+        'lblAmountDue
+        '
+        Me.lblAmountDue.AutoSize = True
+        Me.lblAmountDue.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblAmountDue.Location = New System.Drawing.Point(14, 48)
+        Me.lblAmountDue.Name = "lblAmountDue"
+        Me.lblAmountDue.Size = New System.Drawing.Size(95, 19)
+        Me.lblAmountDue.TabIndex = 11
+        Me.lblAmountDue.Text = "Amount Due"
         '
         'btnClose
         '
@@ -125,7 +147,7 @@ Partial Class frmPayments
         Me.txtTransactionID.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTransactionID.Location = New System.Drawing.Point(161, 159)
         Me.txtTransactionID.Name = "txtTransactionID"
-        Me.txtTransactionID.Size = New System.Drawing.Size(154, 27)
+        Me.txtTransactionID.Size = New System.Drawing.Size(154, 21)
         Me.txtTransactionID.TabIndex = 8
         '
         'lblTransactionID
@@ -133,7 +155,7 @@ Partial Class frmPayments
         Me.lblTransactionID.AutoSize = True
         Me.lblTransactionID.Location = New System.Drawing.Point(9, 162)
         Me.lblTransactionID.Name = "lblTransactionID"
-        Me.lblTransactionID.Size = New System.Drawing.Size(138, 23)
+        Me.lblTransactionID.Size = New System.Drawing.Size(99, 19)
         Me.lblTransactionID.TabIndex = 7
         Me.lblTransactionID.Text = "Mpesa Code"
         '
@@ -141,7 +163,7 @@ Partial Class frmPayments
         '
         Me.txtAmount.Location = New System.Drawing.Point(192, 210)
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(121, 32)
+        Me.txtAmount.Size = New System.Drawing.Size(121, 24)
         Me.txtAmount.TabIndex = 6
         '
         'lblAmount
@@ -149,7 +171,7 @@ Partial Class frmPayments
         Me.lblAmount.AutoSize = True
         Me.lblAmount.Location = New System.Drawing.Point(14, 214)
         Me.lblAmount.Name = "lblAmount"
-        Me.lblAmount.Size = New System.Drawing.Size(88, 23)
+        Me.lblAmount.Size = New System.Drawing.Size(63, 19)
         Me.lblAmount.TabIndex = 5
         Me.lblAmount.Text = "Amount"
         '
@@ -162,43 +184,43 @@ Partial Class frmPayments
         Me.cbxPaymentMode.Items.AddRange(New Object() {"Cash", "M-Pesa"})
         Me.cbxPaymentMode.Location = New System.Drawing.Point(18, 115)
         Me.cbxPaymentMode.Name = "cbxPaymentMode"
-        Me.cbxPaymentMode.Size = New System.Drawing.Size(295, 31)
+        Me.cbxPaymentMode.Size = New System.Drawing.Size(295, 25)
         Me.cbxPaymentMode.TabIndex = 4
         Me.cbxPaymentMode.Text = "Select Payment Mode"
         '
         'txtInvoiceNum
         '
         Me.txtInvoiceNum.Enabled = False
-        Me.txtInvoiceNum.Location = New System.Drawing.Point(192, 60)
+        Me.txtInvoiceNum.Location = New System.Drawing.Point(143, 76)
         Me.txtInvoiceNum.Name = "txtInvoiceNum"
-        Me.txtInvoiceNum.Size = New System.Drawing.Size(122, 32)
+        Me.txtInvoiceNum.Size = New System.Drawing.Size(170, 24)
         Me.txtInvoiceNum.TabIndex = 3
         '
         'lblInvoiceNum
         '
         Me.lblInvoiceNum.AutoSize = True
         Me.lblInvoiceNum.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblInvoiceNum.Location = New System.Drawing.Point(14, 63)
+        Me.lblInvoiceNum.Location = New System.Drawing.Point(14, 79)
         Me.lblInvoiceNum.Name = "lblInvoiceNum"
-        Me.lblInvoiceNum.Size = New System.Drawing.Size(139, 23)
+        Me.lblInvoiceNum.Size = New System.Drawing.Size(99, 19)
         Me.lblInvoiceNum.TabIndex = 2
         Me.lblInvoiceNum.Text = "Invoice Num:"
         '
         'txtWorkOrder
         '
         Me.txtWorkOrder.Enabled = False
-        Me.txtWorkOrder.Location = New System.Drawing.Point(192, 14)
+        Me.txtWorkOrder.Location = New System.Drawing.Point(143, 8)
         Me.txtWorkOrder.Name = "txtWorkOrder"
-        Me.txtWorkOrder.Size = New System.Drawing.Size(122, 32)
+        Me.txtWorkOrder.Size = New System.Drawing.Size(76, 24)
         Me.txtWorkOrder.TabIndex = 1
         '
         'lblWorkOrderID
         '
         Me.lblWorkOrderID.AutoSize = True
         Me.lblWorkOrderID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblWorkOrderID.Location = New System.Drawing.Point(14, 17)
+        Me.lblWorkOrderID.Location = New System.Drawing.Point(14, 13)
         Me.lblWorkOrderID.Name = "lblWorkOrderID"
-        Me.lblWorkOrderID.Size = New System.Drawing.Size(169, 23)
+        Me.lblWorkOrderID.Size = New System.Drawing.Size(123, 19)
         Me.lblWorkOrderID.TabIndex = 0
         Me.lblWorkOrderID.Text = "WorkOrder Num:"
         '
@@ -231,8 +253,9 @@ Partial Class frmPayments
         Me.txtSearch.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(18, 36)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(296, 27)
+        Me.txtSearch.Size = New System.Drawing.Size(296, 21)
         Me.txtSearch.TabIndex = 1
+        Me.txtSearch.Text = "Enter WorkOrder ID/Name/Number here"
         '
         'dgvPayments
         '
@@ -273,7 +296,7 @@ Partial Class frmPayments
         '
         'frmPayments
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1365, 520)
@@ -317,4 +340,6 @@ Partial Class frmPayments
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents lblAmount As Label
     Friend WithEvents btnSearch As Button
+    Friend WithEvents txtAmountDue As TextBox
+    Friend WithEvents lblAmountDue As Label
 End Class

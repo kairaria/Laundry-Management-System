@@ -63,7 +63,7 @@ Public Class frmWorkOrder
         Refresh()
         If NewWorkOrder Then
             btnSaveWorkOrder.Text = "Save and Print WorkOrder"
-        ElseIf NewWorkOrder = False Then
+        ElseIf NewWorkOrder = False And WorkOrderPickup = False Then
             btnSaveWorkOrder.Text = "Update and Print WorkOrder"
             cbxAddNewCust.Enabled = False
         ElseIf WorkOrderPickup Then

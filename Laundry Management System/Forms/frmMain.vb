@@ -34,6 +34,9 @@ Public Class frmMain
         Next
         LogOutToolStripMenuItem.Enabled = False
         AdminMode = False
+        NewWorkOrder = False
+        WorkOrderPickup = False
+
     End Sub
 
     Private Sub NewWorkOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWorkOrderToolStripMenuItem.Click
@@ -63,11 +66,8 @@ Public Class frmMain
     End Sub
 
     Private Sub WorkOrderPickupDeliveryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WorkOrderPickupDeliveryToolStripMenuItem.Click
-        CheckCustomer = True
-        CheckCustomer = False
-        NewWorkOrder = True
-        NewWorkOrderItem = True
-        WorkOrderPickup = False
+
+        WorkOrderPickup = True
         frmWorkOrder.Show()
     End Sub
 

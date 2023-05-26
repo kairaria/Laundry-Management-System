@@ -255,7 +255,7 @@ Partial Class frmPayments
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(296, 21)
         Me.txtSearch.TabIndex = 1
-        Me.txtSearch.Text = "Enter WorkOrder ID/Name/Number here"
+        Me.txtSearch.Text = "Enter WorkOrder ID here"
         '
         'dgvPayments
         '

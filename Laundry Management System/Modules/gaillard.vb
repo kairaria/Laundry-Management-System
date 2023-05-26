@@ -21,6 +21,7 @@ Module gaillard
             connection.Close()
             Return rowsEffected
         Catch ex As Exception
+            connection.Close()
             MsgBox(ex.Message)
             Return Nothing
         End Try

@@ -23,10 +23,11 @@ Public Class frmPayments
             Case Else
                 MsgBox(SaveNewPayment(WorkOrderId) & " payment recorded.", MsgBoxStyle.Information)
         End Select
-
+        LoadPaymentDetails(WorkOrderId)
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        connection.Close()
         Close()
     End Sub
 
@@ -49,23 +50,13 @@ Public Class frmPayments
         Dim query As String
         Try
             searchString = searchString.ToLower
-            'query = "Select custID ID,name 'Name',phone 'Phone Number' from customer where (phone like '%" & searchString & "%' OR lower(name) like lower('%" & searchString & "%') OR custId = '" & searchString & "') AND valid = 1 order by name ASC"
 
-            'query = "Select w.workorderId 'Order Num.', w.datecreated 'Order Date', c.name 'Name', c.phone 'Phone',SUM(wi.charge) 'Total Charge', i.invoice_no 'Invoice No', i.datecreated 'Invoice Date', i.amount 'Invoice Amount', pr.`mode` 'Payment Mode', pr.reference 'Transaction ID', pr.amount 'Payment Amount', SUM(wi.charge) - SUM(pr.amount) 'Amount Due'
-            '    from workorder w
-            '    LEFT JOIN invoice i ON (i.workorderId = w.workorderId) AND (i.valid = 1)
-            '    LEFT JOIN customer c ON (c.custID = w.customerid) AND (c.valid = 1)
-            '    LEFT JOIN payment_received pr ON (pr.workorderid = w.workorderId) OR (pr.invoice_no = i.invoice_no) AND (pr.valid = 1)
-            '    LEFT JOIN workorderitem wi ON (wi.workorderId = w.workorderId) AND (wi.valid = 1)
-            '    where (c.phone like '%" & searchString & "%' OR lower(c.name) like '%" & searchString & "%' OR w.workorderId = '" & searchString & "' OR i.invoice_no like '%" & searchString & "%') AND w.valid = 1 
-            '        GROUP BY w.workorderId
-            '    order by w.workorderId, i.invoiceId, c.custID, pr.payId ASC;"
+            getAmountDue(WorkOrderId)
 
-            query = "SELECT w.workorderId 'Order Num.', w.datecreated 'Order Date', c.name 'Name', c.phone 'Phone',p.`mode` 'Payment Mode',p.reference 'Mpesa Code', p.amount 'Payment Amount' FROM payment_received p
+            query = "SELECT w.workorderId 'Order Num.', w.datecreated 'Order Date', c.name 'Name', c.phone 'Phone',p.datecreated 'Payment Date',p.`mode` 'Payment Mode',p.reference 'Mpesa Code', p.amount 'Payment Amount' FROM payment_received p
             LEFT JOIN workorder w ON w.workorderId = p.workorderid
             LEFT JOIN customer c ON c.custID = w.customerId
-            WHERE (c.phone like '%" & searchString & "%' OR lower(c.name) like '%" & searchString & "%' 
-            OR w.workorderId = '" & searchString & "') AND w.valid = 1;"
+            WHERE (w.workorderId = '" & searchString & "') AND w.valid = 1;"
 
             Dim da As New MySqlDataAdapter(query, connection)
             da.GetFillParameters()
@@ -76,27 +67,24 @@ Public Class frmPayments
                 'Load the Datagrid with the new dataset
                 dgvPayments.DataSource = ds.Tables(0)
                 WorkOrderId = IIf(dgvPayments.Rows(0).Cells(0).Value.ToString.Length = 0, 0, CInt(dgvPayments.Rows(0).Cells(0).Value))
-                getAmountDue(WorkOrderId)
 
             Else
-                MsgBox("Please SEARCH WITH A DIFFERENT name OR phone number OR invoice no. OR work order no. .", MsgBoxStyle.Exclamation)
+                MsgBox("No payment received for this work order no. .", MsgBoxStyle.Exclamation)
             End If
 
             'Clean Up
             ds.Dispose()
             da.Dispose()
             connection.Close()
-
-
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information)
             connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Information)
         End Try
     End Sub
 
     Sub getAmountDue(woId As Integer)
         If WorkOrderId < 1 Then
-            woId = IIf(dgvPayments.CurrentRow.Cells(0).Value.ToString.Length = 0, 0, CInt(dgvPayments.CurrentRow.Cells(0).Value))
+            woId = txtSearch.Text 'IIf(dgvPayments.CurrentRow.Cells(0).Value.ToString.Length = 0, 0, CInt(dgvPayments.CurrentRow.Cells(0).Value))
         Else
             woId = WorkOrderId
         End If
@@ -125,7 +113,7 @@ Public Class frmPayments
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Dim searchString As String = txtSearch.Text
-        If searchString = "Enter WorkOrder ID/Name/Number here" Then MsgBox("Please SEARCH WITH A DIFFERENT name OR phone number OR invoice no. OR work order no. .", MsgBoxStyle.Exclamation)
+        If searchString = "Enter WorkOrder ID here" Then MsgBox("Please SEARCH WITH A DIFFERENT work order no. .", MsgBoxStyle.Exclamation)
         LoadPaymentDetails(searchString)
 
     End Sub

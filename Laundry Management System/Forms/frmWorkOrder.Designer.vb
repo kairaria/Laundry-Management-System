@@ -36,6 +36,11 @@ Partial Class frmWorkOrder
         Me.spltCWorkOrderItem = New System.Windows.Forms.SplitContainer()
         Me.dgvWorkOrderItems = New System.Windows.Forms.DataGridView()
         Me.pnWorkOrderItem = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rdbRepeatPress = New System.Windows.Forms.RadioButton()
+        Me.rdbRepeatRegular = New System.Windows.Forms.RadioButton()
+        Me.rdbPress = New System.Windows.Forms.RadioButton()
+        Me.rdbRegular = New System.Windows.Forms.RadioButton()
         Me.cboServiceItem = New System.Windows.Forms.ComboBox()
         Me.lblColour = New System.Windows.Forms.Label()
         Me.txtColour = New System.Windows.Forms.TextBox()
@@ -61,6 +66,7 @@ Partial Class frmWorkOrder
         Me.spltCWorkOrderItem.SuspendLayout()
         CType(Me.dgvWorkOrderItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnWorkOrderItem.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.pnSaveWorkOrder.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -117,7 +123,7 @@ Partial Class frmWorkOrder
         Me.txtSearchCustomer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSearchCustomer.Location = New System.Drawing.Point(22, 9)
         Me.txtSearchCustomer.Name = "txtSearchCustomer"
-        Me.txtSearchCustomer.Size = New System.Drawing.Size(593, 32)
+        Me.txtSearchCustomer.Size = New System.Drawing.Size(593, 24)
         Me.txtSearchCustomer.TabIndex = 7
         Me.txtSearchCustomer.Text = "Search By Name or Phone Number"
         '
@@ -126,7 +132,7 @@ Partial Class frmWorkOrder
         Me.txtCustPhoneNum.Enabled = False
         Me.txtCustPhoneNum.Location = New System.Drawing.Point(786, 47)
         Me.txtCustPhoneNum.Name = "txtCustPhoneNum"
-        Me.txtCustPhoneNum.Size = New System.Drawing.Size(296, 32)
+        Me.txtCustPhoneNum.Size = New System.Drawing.Size(296, 24)
         Me.txtCustPhoneNum.TabIndex = 5
         '
         'lblPhoneNumber
@@ -135,7 +141,7 @@ Partial Class frmWorkOrder
         Me.lblPhoneNumber.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPhoneNumber.Location = New System.Drawing.Point(625, 50)
         Me.lblPhoneNumber.Name = "lblPhoneNumber"
-        Me.lblPhoneNumber.Size = New System.Drawing.Size(155, 23)
+        Me.lblPhoneNumber.Size = New System.Drawing.Size(108, 17)
         Me.lblPhoneNumber.TabIndex = 4
         Me.lblPhoneNumber.Text = "Phone Number"
         '
@@ -144,7 +150,7 @@ Partial Class frmWorkOrder
         Me.txtCustName.Enabled = False
         Me.txtCustName.Location = New System.Drawing.Point(194, 44)
         Me.txtCustName.Name = "txtCustName"
-        Me.txtCustName.Size = New System.Drawing.Size(421, 32)
+        Me.txtCustName.Size = New System.Drawing.Size(421, 24)
         Me.txtCustName.TabIndex = 3
         '
         'lblCustName
@@ -153,7 +159,7 @@ Partial Class frmWorkOrder
         Me.lblCustName.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCustName.Location = New System.Drawing.Point(18, 47)
         Me.lblCustName.Name = "lblCustName"
-        Me.lblCustName.Size = New System.Drawing.Size(170, 23)
+        Me.lblCustName.Size = New System.Drawing.Size(119, 17)
         Me.lblCustName.TabIndex = 2
         Me.lblCustName.Text = "Customer Name"
         '
@@ -162,7 +168,7 @@ Partial Class frmWorkOrder
         Me.cbxAddNewCust.AutoSize = True
         Me.cbxAddNewCust.Location = New System.Drawing.Point(1066, 13)
         Me.cbxAddNewCust.Name = "cbxAddNewCust"
-        Me.cbxAddNewCust.Size = New System.Drawing.Size(231, 27)
+        Me.cbxAddNewCust.Size = New System.Drawing.Size(161, 23)
         Me.cbxAddNewCust.TabIndex = 1
         Me.cbxAddNewCust.Text = "Add New Customer"
         Me.cbxAddNewCust.UseVisualStyleBackColor = True
@@ -224,6 +230,7 @@ Partial Class frmWorkOrder
         '
         'pnWorkOrderItem
         '
+        Me.pnWorkOrderItem.Controls.Add(Me.GroupBox1)
         Me.pnWorkOrderItem.Controls.Add(Me.cboServiceItem)
         Me.pnWorkOrderItem.Controls.Add(Me.lblColour)
         Me.pnWorkOrderItem.Controls.Add(Me.txtColour)
@@ -242,6 +249,62 @@ Partial Class frmWorkOrder
         Me.pnWorkOrderItem.Size = New System.Drawing.Size(1325, 165)
         Me.pnWorkOrderItem.TabIndex = 10
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.rdbRepeatPress)
+        Me.GroupBox1.Controls.Add(Me.rdbRepeatRegular)
+        Me.GroupBox1.Controls.Add(Me.rdbPress)
+        Me.GroupBox1.Controls.Add(Me.rdbRegular)
+        Me.GroupBox1.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(697, 16)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(238, 132)
+        Me.GroupBox1.TabIndex = 12
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Service"
+        '
+        'rdbRepeatPress
+        '
+        Me.rdbRepeatPress.AutoSize = True
+        Me.rdbRepeatPress.Location = New System.Drawing.Point(13, 99)
+        Me.rdbRepeatPress.Name = "rdbRepeatPress"
+        Me.rdbRepeatPress.Size = New System.Drawing.Size(118, 20)
+        Me.rdbRepeatPress.TabIndex = 3
+        Me.rdbRepeatPress.Text = "Repeat (Press)"
+        Me.rdbRepeatPress.UseVisualStyleBackColor = True
+        '
+        'rdbRepeatRegular
+        '
+        Me.rdbRepeatRegular.AutoSize = True
+        Me.rdbRepeatRegular.Location = New System.Drawing.Point(13, 74)
+        Me.rdbRepeatRegular.Name = "rdbRepeatRegular"
+        Me.rdbRepeatRegular.Size = New System.Drawing.Size(137, 20)
+        Me.rdbRepeatRegular.TabIndex = 2
+        Me.rdbRepeatRegular.Text = "Repeat (Regular)"
+        Me.rdbRepeatRegular.UseVisualStyleBackColor = True
+        '
+        'rdbPress
+        '
+        Me.rdbPress.AutoSize = True
+        Me.rdbPress.Location = New System.Drawing.Point(13, 48)
+        Me.rdbPress.Name = "rdbPress"
+        Me.rdbPress.Size = New System.Drawing.Size(93, 20)
+        Me.rdbPress.TabIndex = 1
+        Me.rdbPress.Text = "Press Only"
+        Me.rdbPress.UseVisualStyleBackColor = True
+        '
+        'rdbRegular
+        '
+        Me.rdbRegular.AutoSize = True
+        Me.rdbRegular.Checked = True
+        Me.rdbRegular.Location = New System.Drawing.Point(13, 22)
+        Me.rdbRegular.Name = "rdbRegular"
+        Me.rdbRegular.Size = New System.Drawing.Size(199, 20)
+        Me.rdbRegular.TabIndex = 0
+        Me.rdbRegular.TabStop = True
+        Me.rdbRegular.Text = "Regular (Wash, Press/Fold)"
+        Me.rdbRegular.UseVisualStyleBackColor = True
+        '
         'cboServiceItem
         '
         Me.cboServiceItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -250,7 +313,7 @@ Partial Class frmWorkOrder
         Me.cboServiceItem.FormattingEnabled = True
         Me.cboServiceItem.Location = New System.Drawing.Point(162, 42)
         Me.cboServiceItem.Name = "cboServiceItem"
-        Me.cboServiceItem.Size = New System.Drawing.Size(390, 31)
+        Me.cboServiceItem.Size = New System.Drawing.Size(390, 25)
         Me.cboServiceItem.Sorted = True
         Me.cboServiceItem.TabIndex = 11
         '
@@ -261,7 +324,7 @@ Partial Class frmWorkOrder
         Me.lblColour.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblColour.Location = New System.Drawing.Point(22, 86)
         Me.lblColour.Name = "lblColour"
-        Me.lblColour.Size = New System.Drawing.Size(75, 23)
+        Me.lblColour.Size = New System.Drawing.Size(53, 17)
         Me.lblColour.TabIndex = 10
         Me.lblColour.Text = "Colour"
         '
@@ -269,7 +332,7 @@ Partial Class frmWorkOrder
         '
         Me.txtColour.Location = New System.Drawing.Point(160, 80)
         Me.txtColour.Name = "txtColour"
-        Me.txtColour.Size = New System.Drawing.Size(64, 32)
+        Me.txtColour.Size = New System.Drawing.Size(64, 24)
         Me.txtColour.TabIndex = 3
         '
         'lblWorkOrderID
@@ -278,7 +341,7 @@ Partial Class frmWorkOrder
         Me.lblWorkOrderID.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblWorkOrderID.Location = New System.Drawing.Point(22, 18)
         Me.lblWorkOrderID.Name = "lblWorkOrderID"
-        Me.lblWorkOrderID.Size = New System.Drawing.Size(138, 23)
+        Me.lblWorkOrderID.Size = New System.Drawing.Size(100, 19)
         Me.lblWorkOrderID.TabIndex = 0
         Me.lblWorkOrderID.Text = "WorkOrder ID"
         '
@@ -304,7 +367,7 @@ Partial Class frmWorkOrder
         Me.lblServiceItem.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblServiceItem.Location = New System.Drawing.Point(22, 47)
         Me.lblServiceItem.Name = "lblServiceItem"
-        Me.lblServiceItem.Size = New System.Drawing.Size(131, 23)
+        Me.lblServiceItem.Size = New System.Drawing.Size(92, 17)
         Me.lblServiceItem.TabIndex = 1
         Me.lblServiceItem.Text = "Service Item"
         '
@@ -330,7 +393,7 @@ Partial Class frmWorkOrder
         Me.lblQty.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblQty.Location = New System.Drawing.Point(246, 86)
         Me.lblQty.Name = "lblQty"
-        Me.lblQty.Size = New System.Drawing.Size(93, 23)
+        Me.lblQty.Size = New System.Drawing.Size(64, 17)
         Me.lblQty.TabIndex = 3
         Me.lblQty.Text = "Quantity"
         '
@@ -346,7 +409,7 @@ Partial Class frmWorkOrder
         '
         Me.txtQuantity.Location = New System.Drawing.Point(345, 80)
         Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(76, 32)
+        Me.txtQuantity.Size = New System.Drawing.Size(76, 24)
         Me.txtQuantity.TabIndex = 4
         '
         'lblComments
@@ -356,7 +419,7 @@ Partial Class frmWorkOrder
         Me.lblComments.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblComments.Location = New System.Drawing.Point(22, 118)
         Me.lblComments.Name = "lblComments"
-        Me.lblComments.Size = New System.Drawing.Size(117, 23)
+        Me.lblComments.Size = New System.Drawing.Size(83, 17)
         Me.lblComments.TabIndex = 5
         Me.lblComments.Text = "Comments"
         '
@@ -408,7 +471,7 @@ Partial Class frmWorkOrder
         '
         'frmWorkOrder
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1365, 640)
@@ -433,6 +496,8 @@ Partial Class frmWorkOrder
         CType(Me.dgvWorkOrderItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnWorkOrderItem.ResumeLayout(False)
         Me.pnWorkOrderItem.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.pnSaveWorkOrder.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -465,4 +530,9 @@ Partial Class frmWorkOrder
     Friend WithEvents txtColour As TextBox
     Friend WithEvents clrDgItemColor As ColorDialog
     Friend WithEvents cboServiceItem As ComboBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rdbRepeatPress As RadioButton
+    Friend WithEvents rdbRepeatRegular As RadioButton
+    Friend WithEvents rdbPress As RadioButton
+    Friend WithEvents rdbRegular As RadioButton
 End Class

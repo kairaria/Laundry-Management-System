@@ -122,8 +122,25 @@ Public Class frmWorkOrder
     End Function
 
     Function SaveNewWorkOrderItem() As String
+        Dim servicechargefactor As Integer
+        Dim chargeFactor As Double
+
+        If rdbRegular.Checked Then
+            chargeFactor = 1
+            servicechargefactor = 1
+        ElseIf rdbPress.Checked Then
+            chargeFactor = 0.5
+            servicechargefactor = 2
+        ElseIf rdbRepeatRegular.Checked Then
+            chargeFactor = 0
+            servicechargefactor = 3
+        ElseIf rdbRepeatPress.Checked Then
+            chargeFactor = 0
+            servicechargefactor = 4
+        End If
+
         Try
-            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitemid,quantity,charge,comments,colour) VALUES ('" & WorkOrderID & "', '" & cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemID & "', '" & CInt(txtQuantity.Text) & "','" & CDbl(cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemPrice) * txtQuantity.Text & "','" & txtComments.Text & "','" & txtColour.BackColor.ToArgb & "')")
+            Return UpdateRecord("INSERT INTO workorderitem (workorderid,serviceitemid,quantity,charge,comments,colour,servicechargefactor) VALUES ('" & WorkOrderID & "', '" & cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemID & "', '" & CInt(txtQuantity.Text) & "','" & CDbl(cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemPrice) * txtQuantity.Text * chargeFactor & "','" & txtComments.Text & "','" & txtColour.BackColor.ToArgb & "','" & servicechargefactor & "')")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -132,14 +149,40 @@ Public Class frmWorkOrder
     End Function
 
     Function UpdateWorkOrderItem(WorkOrderItemId As Integer) As String
+        Dim chargeFactor, servicechargefactor As Integer
+
+        If rdbRegular.Checked Then
+            chargeFactor = 1
+            servicechargefactor = 1
+        ElseIf rdbPress.Checked Then
+            chargeFactor = 0.5
+            servicechargefactor = 2
+        ElseIf rdbRepeatRegular.Checked Then
+            chargeFactor = 0
+            servicechargefactor = 3
+        ElseIf rdbRepeatPress.Checked Then
+            chargeFactor = 0
+            servicechargefactor = 4
+        End If
+
         Try
-            Return UpdateRecord("UPDATE workorderitem SET serviceitemid = '" & cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemID & "',quantity = '" & txtQuantity.Text & "',charge = '" & CDbl(cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemPrice) * txtQuantity.Text & "',comments = '" & txtComments.Text & "',colour='" & txtColour.BackColor.ToArgb & "' WHERE workorderitemid = '" & WorkOrderItemId & "'")
+            Return UpdateRecord("UPDATE workorderitem SET serviceitemid = '" & cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemID & "',quantity = '" & txtQuantity.Text & "',charge = '" & CDbl(cboServiceItem.Items(cboServiceItem.SelectedIndex).ServiceItemPrice) * txtQuantity.Text * chargeFactor & "',comments = '" & txtComments.Text & "',colour='" & txtColour.BackColor.ToArgb & "',servicechargefactor='" & servicechargefactor & "' WHERE workorderitemid = '" & WorkOrderItemId & "'")
         Catch ex As Exception
             connection.Close()
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
             Return 0
         End Try
     End Function
+
+    Sub CollectWorkOrder(WorkOrderID As Integer)
+        Try
+            UpdateRecord("UPDATE workorder SET datecollected = now(), valid = 0 WHERE workorderid = '" & WorkOrderID & "'")
+            MsgBox("Workorder: " & WorkOrderID & " has been collected by the client.")
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
+    End Sub
 
     Function ArchiveWorkOrderItem(WorkOrderItemId As Integer) As String
         Try
@@ -242,6 +285,37 @@ Public Class frmWorkOrder
 
     End Function
 
+    Function getAmountDue(woId) As Integer
+        Dim AmountDue As Double
+        If WorkOrderID < 1 Then
+            MsgBox("Select a WorkOrder.", MsgBoxStyle.Information)
+        Else
+            woId = WorkOrderID
+        End If
+        Dim query As String = "SELECT IFNULL(SUM(wi.charge),0)-IFNULL(px.TP,0) 'Amount Due' FROM workorderitem wi
+                LEFT JOIN (SELECT DISTINCT p.workorderid, SUM(p.amount) 'TP' FROM payment_received p WHERE p.workorderid = '" & woId & "') px ON px.workorderid = wi.workorderId
+                    WHERE wi.workorderId =  '" & woId & "';"
+        Dim command As New MySqlCommand(query, connection) With {
+            .CommandTimeout = 0
+        }
+        Dim readah As MySqlDataReader
+        Try
+            connection.Open()
+            readah = command.ExecuteReader
+            While readah.Read()
+                AmountDue = IIf(readah.IsDBNull(0), 0, readah.GetDouble(0))
+            End While
+            readah.Close()
+            connection.Close()
+            Return AmountDue
+        Catch ex As Exception
+            connection.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Exit Function
+        End Try
+    End Function
+
+
     Private Sub BtnDeleteWorkItem_Click(sender As Object, e As EventArgs) Handles btnDeleteWorkItem.Click
         If NewWorkOrderItem = False And WorkOrderItemID <> 0 Then 'Delete the service item selected
             MsgBox(ArchiveWorkOrderItem(WorkOrderItemID) & " service item deleted.", MsgBoxStyle.Information)
@@ -254,22 +328,35 @@ Public Class frmWorkOrder
     End Sub
 
     Private Sub BtnSaveWorkOrder_Click(sender As Object, e As EventArgs) Handles btnSaveWorkOrder.Click
-        If WorkOrderID <> 0 Then
-            If MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.") = vbYes Then
-                MsgBox("Proceed to Capture payment. WorkOrder Slip Printed")
+        If WorkOrderPickup Then
+            If getAmountDue(WorkOrderID) > 0 Then
+                MsgBox("The workOrder still has pending Payment. Proceed to Capture payment.")
                 frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
                 frmPayments.Show()
                 Close()
                 frmMain.Refresh()
             Else
-                MsgBox("WorkOrder Slip Printed")
+                CollectWorkOrder(WorkOrderID)
                 Close()
-                frmMain.Refresh()
             End If
-            WorkOrderID = 0
-            WorkOrderItemID = 0
         Else
-            MsgBox("No workorder ID selected to save/print", MsgBoxStyle.Information)
+            If WorkOrderID <> 0 Then
+                If MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.") = vbYes Then
+                    MsgBox("Proceed to Capture payment. WorkOrder Slip Printed")
+                    frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
+                    frmPayments.Show()
+                    Close()
+                    frmMain.Refresh()
+                Else
+                    MsgBox("WorkOrder Slip Printed")
+                    Close()
+                    frmMain.Refresh()
+                End If
+                WorkOrderID = 0
+                WorkOrderItemID = 0
+            Else
+                MsgBox("No workorder ID selected to save/print", MsgBoxStyle.Information)
+            End If
         End If
 
     End Sub
@@ -277,11 +364,17 @@ Public Class frmWorkOrder
     Private Sub BtnVoidWorkOrder_Click(sender As Object, e As EventArgs) Handles btnVoidWorkOrder.Click
         Select Case WorkOrderID
             Case Is <> 0
-                If MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder") = vbYes Then
-                    ArchiveWorkOrder(WorkOrderID)
-                    MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+                If WorkOrderPickup Then
+                    connection.Close()
                     Close()
                     frmMain.Refresh()
+                Else
+                    If MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder") = vbYes Then
+                        ArchiveWorkOrder(WorkOrderID)
+                        MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+                        Close()
+                        frmMain.Refresh()
+                    End If
                 End If
             Case Else
                 Close()
@@ -289,6 +382,7 @@ Public Class frmWorkOrder
         End Select
         WorkOrderID = 0
         WorkOrderItemID = 0
+
     End Sub
 
     Sub LoadCustomerDetails(searchString As String)
@@ -430,12 +524,13 @@ Public Class frmWorkOrder
     End Sub
 
     Sub PopulateWorkOrderItemFields(workOrderItemId As Integer)
-        Dim query As String = "SELECT woi.workorderid,woi.workorderitemid,si.serviceitemName,woi.charge,woi.quantity,woi.comments,woi.colour from workorderitem woi LEFT JOIN serviceitem si ON si.serviceItemID = woi.serviceitemID WHERE woi.workorderitemid like '" & workOrderItemId & "' AND woi.valid = 1;"
+        Dim query As String = "SELECT woi.workorderid,woi.workorderitemid,si.serviceitemName,woi.charge,woi.quantity,woi.comments,woi.colour,woi.servicechargefactor from workorderitem woi LEFT JOIN serviceitem si ON si.serviceItemID = woi.serviceitemID WHERE woi.workorderitemid like '" & workOrderItemId & "' AND woi.valid = 1;"
         Dim command As New MySqlCommand(query, connection) With {
             .CommandTimeout = 0
         }
         Dim readah As MySqlDataReader
         Try
+            Dim servicechargefactor As Integer
             connection.Open()
             readah = command.ExecuteReader
             While readah.Read()
@@ -446,6 +541,18 @@ Public Class frmWorkOrder
                 txtComments.Text = IIf(readah.IsDBNull(5), String.Empty, readah.GetString(5))
                 lblWorkOrderID.Text = "Order No: " & WorkOrderID
                 txtColour.BackColor = IIf(readah.IsDBNull(6), String.Empty, Color.FromArgb(readah.GetInt32(6)))
+                servicechargefactor = IIf(readah.IsDBNull(7), 1, readah.GetInt32(7))
+
+                If servicechargefactor = 1 Then
+                    rdbRegular.Checked = True
+                ElseIf servicechargefactor = 2 Then
+                    rdbPress.Checked = True
+                ElseIf servicechargefactor = 3 Then
+                    rdbRepeatRegular.Checked = True
+                ElseIf servicechargefactor = 4 Then
+                    rdbRepeatPress.Checked = True
+                End If
+
             End While
             readah.Close()
             connection.Close()
@@ -695,6 +802,19 @@ Public Class frmWorkOrder
             txtQuantity.Text = 1
         End If
     End Sub
+
+    Private Sub rdbRepeatRegular_CheckedChanged(sender As Object, e As EventArgs) Handles rdbRepeatRegular.CheckedChanged
+        If rdbRepeatRegular.Checked Then
+            txtComments.AppendText(" Repeat Regular Service for an item from WorkOrder: ")
+        End If
+    End Sub
+
+    Private Sub rdbRepeatPress_CheckedChanged(sender As Object, e As EventArgs) Handles rdbRepeatPress.CheckedChanged
+        If rdbRepeatPress.Checked Then
+            txtComments.AppendText(" Repeat Press for an item from WorkOrder: ")
+        End If
+    End Sub
+
 
     Dim t_price As Long
     Dim t_qty As Long

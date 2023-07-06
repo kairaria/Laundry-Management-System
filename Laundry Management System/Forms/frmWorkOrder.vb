@@ -31,7 +31,7 @@ Public Class frmWorkOrder
         End If
     End Sub
 
-    Function LoadCboServiceItem()
+    Sub LoadCboServiceItem()
         Dim query As String = "SELECT serviceitemName,price,serviceItemID from serviceitem WHERE valid = 1;"
         Dim command As New MySqlCommand(query, connection) With {
             .CommandTimeout = 0
@@ -51,10 +51,10 @@ Public Class frmWorkOrder
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
             connection.Close()
-            Exit Function
+            Exit Sub
         End Try
 
-    End Function
+    End Sub
 
     Private Sub FrmWorkOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MdiParent = frmMain
@@ -289,6 +289,7 @@ Public Class frmWorkOrder
         Dim AmountDue As Double
         If WorkOrderID < 1 Then
             MsgBox("Select a WorkOrder.", MsgBoxStyle.Information)
+            Exit Function
         Else
             woId = WorkOrderID
         End If
@@ -333,25 +334,23 @@ Public Class frmWorkOrder
                 MsgBox("The workOrder still has pending Payment. Proceed to Capture payment.")
                 frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
                 frmPayments.Show()
-                Close()
-                frmMain.Refresh()
             Else
                 CollectWorkOrder(WorkOrderID)
-                Close()
             End If
+            WorkOrderPickup = False
+            Close()
+            frmMain.Refresh()
         Else
             If WorkOrderID <> 0 Then
                 If MsgBox("Proceed to receive payment for the laundry order?", MsgBoxStyle.YesNo, "Workorder No." & WorkOrderID & " has been recorded.") = vbYes Then
                     MsgBox("Proceed to Capture payment. WorkOrder Slip Printed")
                     frmPayments.WorkOrderIdFromWorkOrder = WorkOrderID
                     frmPayments.Show()
-                    Close()
-                    frmMain.Refresh()
                 Else
                     MsgBox("WorkOrder Slip Printed")
-                    Close()
-                    frmMain.Refresh()
                 End If
+                Close()
+                frmMain.Refresh()
                 WorkOrderID = 0
                 WorkOrderItemID = 0
             Else
@@ -362,27 +361,16 @@ Public Class frmWorkOrder
     End Sub
 
     Private Sub BtnVoidWorkOrder_Click(sender As Object, e As EventArgs) Handles btnVoidWorkOrder.Click
-        Select Case WorkOrderID
-            Case Is <> 0
-                If WorkOrderPickup Then
-                    connection.Close()
-                    Close()
-                    frmMain.Refresh()
-                Else
-                    If MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder") = vbYes Then
-                        ArchiveWorkOrder(WorkOrderID)
-                        MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
-                        Close()
-                        frmMain.Refresh()
-                    End If
-                End If
-            Case Else
-                Close()
-                frmMain.Refresh()
-        End Select
+
+        If WorkOrderID <> 0 And MsgBox("Do you want to cancel/delete this Laundry Workorder?", MsgBoxStyle.YesNo, "Cancel/Delete Workorder") = vbYes Then
+            ArchiveWorkOrder(WorkOrderID)
+            MsgBox("Workorder No. " & WorkOrderID & " has been Cancelled.")
+        End If
+
         WorkOrderID = 0
         WorkOrderItemID = 0
-
+        Close()
+        frmMain.Refresh()
     End Sub
 
     Sub LoadCustomerDetails(searchString As String)

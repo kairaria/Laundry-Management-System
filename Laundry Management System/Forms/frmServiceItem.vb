@@ -2,9 +2,10 @@
 Public Class frmServiceItem
     Private NewServiceItem As Boolean
     Private Sub frmServiceItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        NewServiceItem = 1
+
         MdiParent = frmMain
         LoadServiceItemDetails()
+        NewServiceItem = 1
     End Sub
     Sub LoadServiceItemDetails()
         'Clear the Datagrid first

@@ -38,6 +38,9 @@ Partial Class frmMain
         Me.UsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ServiceItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RevenueReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExpensesReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WorkOrderStatusReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -48,7 +51,7 @@ Partial Class frmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(12, 4, 0, 4)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1898, 42)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1898, 35)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -57,26 +60,26 @@ Partial Class frmMain
         Me.LaundryOrdersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewWorkOrderToolStripMenuItem, Me.EditWorkOrderToolStripMenuItem, Me.WorkOrderPickupDeliveryToolStripMenuItem})
         Me.LaundryOrdersToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LaundryOrdersToolStripMenuItem.Name = "LaundryOrdersToolStripMenuItem"
-        Me.LaundryOrdersToolStripMenuItem.Size = New System.Drawing.Size(202, 34)
+        Me.LaundryOrdersToolStripMenuItem.Size = New System.Drawing.Size(170, 27)
         Me.LaundryOrdersToolStripMenuItem.Text = "Laundry Orders"
         '
         'NewWorkOrderToolStripMenuItem
         '
         Me.NewWorkOrderToolStripMenuItem.Name = "NewWorkOrderToolStripMenuItem"
-        Me.NewWorkOrderToolStripMenuItem.Size = New System.Drawing.Size(416, 34)
+        Me.NewWorkOrderToolStripMenuItem.Size = New System.Drawing.Size(346, 28)
         Me.NewWorkOrderToolStripMenuItem.Text = "New WorkOrder"
         '
         'EditWorkOrderToolStripMenuItem
         '
         Me.EditWorkOrderToolStripMenuItem.Enabled = False
         Me.EditWorkOrderToolStripMenuItem.Name = "EditWorkOrderToolStripMenuItem"
-        Me.EditWorkOrderToolStripMenuItem.Size = New System.Drawing.Size(416, 34)
+        Me.EditWorkOrderToolStripMenuItem.Size = New System.Drawing.Size(346, 28)
         Me.EditWorkOrderToolStripMenuItem.Text = "Edit WorkOrder"
         '
         'WorkOrderPickupDeliveryToolStripMenuItem
         '
         Me.WorkOrderPickupDeliveryToolStripMenuItem.Name = "WorkOrderPickupDeliveryToolStripMenuItem"
-        Me.WorkOrderPickupDeliveryToolStripMenuItem.Size = New System.Drawing.Size(416, 34)
+        Me.WorkOrderPickupDeliveryToolStripMenuItem.Size = New System.Drawing.Size(346, 28)
         Me.WorkOrderPickupDeliveryToolStripMenuItem.Text = "WorkOrder Pickup/Delivery"
         '
         'AccountingToolStripMenuItem
@@ -84,32 +87,33 @@ Partial Class frmMain
         Me.AccountingToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RegisterPaymentToolStripMenuItem, Me.RegisterExpenseToolStripMenuItem, Me.GenerateInvoiceToolStripMenuItem})
         Me.AccountingToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AccountingToolStripMenuItem.Name = "AccountingToolStripMenuItem"
-        Me.AccountingToolStripMenuItem.Size = New System.Drawing.Size(165, 34)
+        Me.AccountingToolStripMenuItem.Size = New System.Drawing.Size(135, 27)
         Me.AccountingToolStripMenuItem.Text = "Accounting"
         '
         'RegisterPaymentToolStripMenuItem
         '
         Me.RegisterPaymentToolStripMenuItem.Name = "RegisterPaymentToolStripMenuItem"
-        Me.RegisterPaymentToolStripMenuItem.Size = New System.Drawing.Size(310, 34)
+        Me.RegisterPaymentToolStripMenuItem.Size = New System.Drawing.Size(259, 28)
         Me.RegisterPaymentToolStripMenuItem.Text = "Register Payment"
         '
         'RegisterExpenseToolStripMenuItem
         '
         Me.RegisterExpenseToolStripMenuItem.Name = "RegisterExpenseToolStripMenuItem"
-        Me.RegisterExpenseToolStripMenuItem.Size = New System.Drawing.Size(310, 34)
+        Me.RegisterExpenseToolStripMenuItem.Size = New System.Drawing.Size(259, 28)
         Me.RegisterExpenseToolStripMenuItem.Text = "Register Expense"
         '
         'GenerateInvoiceToolStripMenuItem
         '
         Me.GenerateInvoiceToolStripMenuItem.Name = "GenerateInvoiceToolStripMenuItem"
-        Me.GenerateInvoiceToolStripMenuItem.Size = New System.Drawing.Size(310, 34)
+        Me.GenerateInvoiceToolStripMenuItem.Size = New System.Drawing.Size(259, 28)
         Me.GenerateInvoiceToolStripMenuItem.Text = "Generate Invoice"
         '
         'ReportsToolStripMenuItem
         '
+        Me.ReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RevenueReportToolStripMenuItem, Me.ExpensesReportToolStripMenuItem, Me.WorkOrderStatusReportToolStripMenuItem})
         Me.ReportsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReportsToolStripMenuItem.Name = "ReportsToolStripMenuItem"
-        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(113, 34)
+        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
         Me.ReportsToolStripMenuItem.Text = "Reports"
         '
         'SettingsToolStripMenuItem
@@ -117,42 +121,60 @@ Partial Class frmMain
         Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BizProfileToolStripMenuItem, Me.CustomersToolStripMenuItem, Me.UsersToolStripMenuItem, Me.ServiceItemsToolStripMenuItem, Me.LogOutToolStripMenuItem})
         Me.SettingsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 34)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'BizProfileToolStripMenuItem
         '
         Me.BizProfileToolStripMenuItem.Name = "BizProfileToolStripMenuItem"
-        Me.BizProfileToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.BizProfileToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
         Me.BizProfileToolStripMenuItem.Text = "Biz Profile"
         '
         'CustomersToolStripMenuItem
         '
         Me.CustomersToolStripMenuItem.Name = "CustomersToolStripMenuItem"
-        Me.CustomersToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.CustomersToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
         Me.CustomersToolStripMenuItem.Text = "Customers"
         '
         'UsersToolStripMenuItem
         '
         Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
-        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
         Me.UsersToolStripMenuItem.Text = "Users"
         '
         'ServiceItemsToolStripMenuItem
         '
         Me.ServiceItemsToolStripMenuItem.Name = "ServiceItemsToolStripMenuItem"
-        Me.ServiceItemsToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.ServiceItemsToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
         Me.ServiceItemsToolStripMenuItem.Text = "Service Items"
         '
         'LogOutToolStripMenuItem
         '
         Me.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem"
-        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(257, 34)
+        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
         Me.LogOutToolStripMenuItem.Text = "Log Out"
+        '
+        'RevenueReportToolStripMenuItem
+        '
+        Me.RevenueReportToolStripMenuItem.Name = "RevenueReportToolStripMenuItem"
+        Me.RevenueReportToolStripMenuItem.Size = New System.Drawing.Size(323, 28)
+        Me.RevenueReportToolStripMenuItem.Text = "Revenue Report"
+        '
+        'ExpensesReportToolStripMenuItem
+        '
+        Me.ExpensesReportToolStripMenuItem.Name = "ExpensesReportToolStripMenuItem"
+        Me.ExpensesReportToolStripMenuItem.Size = New System.Drawing.Size(323, 28)
+        Me.ExpensesReportToolStripMenuItem.Text = "Expenses Report"
+        '
+        'WorkOrderStatusReportToolStripMenuItem
+        '
+        Me.WorkOrderStatusReportToolStripMenuItem.Name = "WorkOrderStatusReportToolStripMenuItem"
+        Me.WorkOrderStatusReportToolStripMenuItem.Size = New System.Drawing.Size(323, 28)
+        Me.WorkOrderStatusReportToolStripMenuItem.Text = "WorkOrder Status Report"
         '
         'frmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(19.0!, 39.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(16.0!, 33.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.MediumAquamarine
         Me.ClientSize = New System.Drawing.Size(1898, 1024)
@@ -188,4 +210,7 @@ Partial Class frmMain
     Friend WithEvents ReportsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents WorkOrderPickupDeliveryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LogOutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RevenueReportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExpensesReportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents WorkOrderStatusReportToolStripMenuItem As ToolStripMenuItem
 End Class

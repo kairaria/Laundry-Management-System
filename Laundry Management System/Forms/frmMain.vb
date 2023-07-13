@@ -97,4 +97,16 @@ Public Class frmMain
             frmLogin.Show()
         End If
     End Sub
+
+    Private Sub RevenueReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevenueReportToolStripMenuItem.Click
+        frmRevenueReport.Show()
+    End Sub
+
+    Private Sub ExpensesReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExpensesReportToolStripMenuItem.Click
+        frmExpensesReport.Show()
+    End Sub
+
+    Private Sub WorkOrderStatusReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WorkOrderStatusReportToolStripMenuItem.Click
+        frmWorkOrdersReport.Show()
+    End Sub
 End Class

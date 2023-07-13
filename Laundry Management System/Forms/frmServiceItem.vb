@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class frmServiceItem
-    Private NewServiceItem As Boolean
+    Private NewServiceItem As Boolean = 1
     Private Sub frmServiceItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         MdiParent = frmMain
@@ -73,12 +73,26 @@ Public Class frmServiceItem
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         If NewServiceItem = 0 Then
             MsgBox(ArchiveServiceItem() & " service item archived.", MsgBoxStyle.Information)
+            LoadServiceItemDetails()
         Else
             Close()
         End If
     End Sub
 
-    Private Sub dgvServiceItem_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvServiceItem.CellContentClick
+
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        If NewServiceItem = 1 Then
+            MsgBox(SaveNewServiceItem() & " service item saved.", MsgBoxStyle.Information)
+        ElseIf NewServiceItem = 0 Then
+            MsgBox(UpdateServiceItem() & " service item updated.", MsgBoxStyle.Information)
+        End If
+        LoadServiceItemDetails()
+    End Sub
+
+
+
+    Private Sub dgvServiceItem_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvServiceItem.CellContentDoubleClick
         If dgvServiceItem.CurrentRow.Cells(0).Value > 0 Then
             NewServiceItem = 0
             txtServiceItem.Text = dgvServiceItem.CurrentRow.Cells(1).Value
@@ -87,11 +101,17 @@ Public Class frmServiceItem
         End If
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If NewServiceItem = 1 Then
-            MsgBox(SaveNewServiceItem() & " service item saved.", MsgBoxStyle.Information)
-        Else
-            MsgBox(UpdateServiceItem() & " service item updated.", MsgBoxStyle.Information)
+    Private Sub txtAmount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtPrice.KeyPress
+        If (Not Char.IsControl(e.KeyChar) _
+                     AndAlso (Not Char.IsDigit(e.KeyChar) _
+                     AndAlso (e.KeyChar <> Microsoft.VisualBasic.ChrW(46)))) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtAmount_TextChanged(sender As Object, e As EventArgs) Handles txtPrice.TextChanged
+        If System.Text.RegularExpressions.Regex.IsMatch(txtPrice.Text, "[^ 0-9]") Then
+            txtPrice.Text = ""
         End If
     End Sub
 End Class

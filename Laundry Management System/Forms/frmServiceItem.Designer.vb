@@ -23,13 +23,13 @@ Partial Class frmServiceItem
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.dgvServiceItem = New System.Windows.Forms.DataGridView()
+        Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.txtServiceItem = New System.Windows.Forms.TextBox()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.txtServiceItem = New System.Windows.Forms.TextBox()
         Me.lblServiceItem = New System.Windows.Forms.Label()
-        Me.txtPrice = New System.Windows.Forms.TextBox()
         Me.lblPrice = New System.Windows.Forms.Label()
-        Me.dgvServiceItem = New System.Windows.Forms.DataGridView()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -41,6 +41,7 @@ Partial Class frmServiceItem
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -50,15 +51,46 @@ Partial Class frmServiceItem
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.txtPrice)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.txtServiceItem)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnClose)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnSave)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.txtServiceItem)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lblServiceItem)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.txtPrice)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lblPrice)
-        Me.SplitContainer1.Size = New System.Drawing.Size(648, 310)
-        Me.SplitContainer1.SplitterDistance = 193
+        Me.SplitContainer1.Size = New System.Drawing.Size(486, 252)
+        Me.SplitContainer1.SplitterDistance = 156
+        Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 0
+        '
+        'dgvServiceItem
+        '
+        Me.dgvServiceItem.AllowUserToAddRows = False
+        Me.dgvServiceItem.AllowUserToDeleteRows = False
+        Me.dgvServiceItem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvServiceItem.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.dgvServiceItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvServiceItem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvServiceItem.Location = New System.Drawing.Point(0, 0)
+        Me.dgvServiceItem.Margin = New System.Windows.Forms.Padding(2)
+        Me.dgvServiceItem.Name = "dgvServiceItem"
+        Me.dgvServiceItem.ReadOnly = True
+        Me.dgvServiceItem.RowTemplate.Height = 24
+        Me.dgvServiceItem.Size = New System.Drawing.Size(486, 156)
+        Me.dgvServiceItem.TabIndex = 0
+        '
+        'txtPrice
+        '
+        Me.txtPrice.Location = New System.Drawing.Point(80, 51)
+        Me.txtPrice.Name = "txtPrice"
+        Me.txtPrice.Size = New System.Drawing.Size(138, 20)
+        Me.txtPrice.TabIndex = 24
+        '
+        'txtServiceItem
+        '
+        Me.txtServiceItem.Location = New System.Drawing.Point(80, 12)
+        Me.txtServiceItem.Name = "txtServiceItem"
+        Me.txtServiceItem.Size = New System.Drawing.Size(189, 20)
+        Me.txtServiceItem.TabIndex = 23
         '
         'btnClose
         '
@@ -68,9 +100,10 @@ Partial Class frmServiceItem
         Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClose.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.Red
-        Me.btnClose.Location = New System.Drawing.Point(524, 36)
+        Me.btnClose.Location = New System.Drawing.Point(393, 29)
+        Me.btnClose.Margin = New System.Windows.Forms.Padding(2)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(108, 57)
+        Me.btnClose.Size = New System.Drawing.Size(81, 46)
         Me.btnClose.TabIndex = 22
         Me.btnClose.Text = "Exit"
         Me.btnClose.UseVisualStyleBackColor = False
@@ -83,67 +116,41 @@ Partial Class frmServiceItem
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSave.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.Blue
-        Me.btnSave.Location = New System.Drawing.Point(378, 36)
+        Me.btnSave.Location = New System.Drawing.Point(284, 29)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(108, 57)
+        Me.btnSave.Size = New System.Drawing.Size(81, 46)
         Me.btnSave.TabIndex = 21
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = False
         '
-        'txtServiceItem
-        '
-        Me.txtServiceItem.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtServiceItem.Location = New System.Drawing.Point(163, 12)
-        Me.txtServiceItem.Name = "txtServiceItem"
-        Me.txtServiceItem.Size = New System.Drawing.Size(154, 24)
-        Me.txtServiceItem.TabIndex = 20
-        '
         'lblServiceItem
         '
         Me.lblServiceItem.AutoSize = True
-        Me.lblServiceItem.Location = New System.Drawing.Point(12, 15)
+        Me.lblServiceItem.Location = New System.Drawing.Point(9, 12)
+        Me.lblServiceItem.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblServiceItem.Name = "lblServiceItem"
-        Me.lblServiceItem.Size = New System.Drawing.Size(85, 17)
+        Me.lblServiceItem.Size = New System.Drawing.Size(66, 13)
         Me.lblServiceItem.TabIndex = 19
         Me.lblServiceItem.Text = "Service Item"
-        '
-        'txtPrice
-        '
-        Me.txtPrice.Location = New System.Drawing.Point(163, 64)
-        Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.Size = New System.Drawing.Size(121, 22)
-        Me.txtPrice.TabIndex = 18
         '
         'lblPrice
         '
         Me.lblPrice.AutoSize = True
-        Me.lblPrice.Location = New System.Drawing.Point(17, 67)
+        Me.lblPrice.Location = New System.Drawing.Point(13, 54)
+        Me.lblPrice.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblPrice.Name = "lblPrice"
-        Me.lblPrice.Size = New System.Drawing.Size(54, 17)
+        Me.lblPrice.Size = New System.Drawing.Size(41, 13)
         Me.lblPrice.TabIndex = 17
         Me.lblPrice.Text = "Charge"
         '
-        'dgvServiceItem
-        '
-        Me.dgvServiceItem.AllowUserToAddRows = False
-        Me.dgvServiceItem.AllowUserToDeleteRows = False
-        Me.dgvServiceItem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvServiceItem.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        Me.dgvServiceItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvServiceItem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvServiceItem.Location = New System.Drawing.Point(0, 0)
-        Me.dgvServiceItem.Name = "dgvServiceItem"
-        Me.dgvServiceItem.ReadOnly = True
-        Me.dgvServiceItem.RowTemplate.Height = 24
-        Me.dgvServiceItem.Size = New System.Drawing.Size(648, 193)
-        Me.dgvServiceItem.TabIndex = 0
-        '
         'frmServiceItem
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(648, 310)
+        Me.ClientSize = New System.Drawing.Size(486, 252)
         Me.Controls.Add(Me.SplitContainer1)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmServiceItem"
         Me.Text = "Service Item"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -160,8 +167,8 @@ Partial Class frmServiceItem
     Friend WithEvents dgvServiceItem As DataGridView
     Friend WithEvents btnClose As Button
     Friend WithEvents btnSave As Button
-    Friend WithEvents txtServiceItem As TextBox
     Friend WithEvents lblServiceItem As Label
-    Friend WithEvents txtPrice As TextBox
     Friend WithEvents lblPrice As Label
+    Friend WithEvents txtServiceItem As TextBox
+    Friend WithEvents txtPrice As TextBox
 End Class

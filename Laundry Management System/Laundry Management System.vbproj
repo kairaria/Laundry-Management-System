@@ -118,10 +118,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="crRevenueReport.vb">
+    <Compile Include="CrystalReport_ExpenseReport.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>crRevenueReport.rpt</DependentUpon>
+      <DependentUpon>CrystalReport_ExpenseReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReport_RevenueReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport_RevenueReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReport_WorkOrdersReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport_WorkOrdersReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\frmExpense.Designer.vb">
@@ -158,6 +170,12 @@
       <DependentUpon>frmRevenueReport.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmRevenueReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmServiceItem.Designer.vb">
+      <DependentUpon>frmServiceItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmServiceItem.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmSplashscreen.Designer.vb">
@@ -197,12 +215,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="crRevenueReport.rpt">
+    <EmbeddedResource Include="CrystalReport_ExpenseReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crRevenueReport.vb</LastGenOutput>
+      <LastGenOutput>CrystalReport_ExpenseReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReport_RevenueReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport_RevenueReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReport_WorkOrdersReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport_WorkOrdersReport.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmExpense.resx">
       <DependentUpon>frmExpense.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmExpensesReport.resx">
+      <DependentUpon>frmExpensesReport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
@@ -216,11 +245,17 @@
     <EmbeddedResource Include="Forms\frmRevenueReport.resx">
       <DependentUpon>frmRevenueReport.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmServiceItem.resx">
+      <DependentUpon>frmServiceItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSplashscreen.resx">
       <DependentUpon>frmSplashscreen.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWorkOrder.resx">
       <DependentUpon>frmWorkOrder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmWorkOrdersReport.resx">
+      <DependentUpon>frmWorkOrdersReport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

@@ -40,4 +40,8 @@
             Return 0
         End Try
     End Function
+
+    Private Sub frmExpenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MdiParent = frmMain
+    End Sub
 End Class

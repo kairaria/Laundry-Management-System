@@ -32,15 +32,15 @@ Partial Class frmMain
         Me.RegisterExpenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GenerateInvoiceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RevenueReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExpensesReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WorkOrderStatusReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BizProfileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ServiceItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RevenueReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExpensesReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WorkOrderStatusReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -116,44 +116,6 @@ Partial Class frmMain
         Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
         Me.ReportsToolStripMenuItem.Text = "Reports"
         '
-        'SettingsToolStripMenuItem
-        '
-        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BizProfileToolStripMenuItem, Me.CustomersToolStripMenuItem, Me.UsersToolStripMenuItem, Me.ServiceItemsToolStripMenuItem, Me.LogOutToolStripMenuItem})
-        Me.SettingsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
-        Me.SettingsToolStripMenuItem.Text = "Settings"
-        '
-        'BizProfileToolStripMenuItem
-        '
-        Me.BizProfileToolStripMenuItem.Name = "BizProfileToolStripMenuItem"
-        Me.BizProfileToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
-        Me.BizProfileToolStripMenuItem.Text = "Biz Profile"
-        '
-        'CustomersToolStripMenuItem
-        '
-        Me.CustomersToolStripMenuItem.Name = "CustomersToolStripMenuItem"
-        Me.CustomersToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
-        Me.CustomersToolStripMenuItem.Text = "Customers"
-        '
-        'UsersToolStripMenuItem
-        '
-        Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
-        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
-        Me.UsersToolStripMenuItem.Text = "Users"
-        '
-        'ServiceItemsToolStripMenuItem
-        '
-        Me.ServiceItemsToolStripMenuItem.Name = "ServiceItemsToolStripMenuItem"
-        Me.ServiceItemsToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
-        Me.ServiceItemsToolStripMenuItem.Text = "Service Items"
-        '
-        'LogOutToolStripMenuItem
-        '
-        Me.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem"
-        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(215, 28)
-        Me.LogOutToolStripMenuItem.Text = "Log Out"
-        '
         'RevenueReportToolStripMenuItem
         '
         Me.RevenueReportToolStripMenuItem.Name = "RevenueReportToolStripMenuItem"
@@ -171,6 +133,44 @@ Partial Class frmMain
         Me.WorkOrderStatusReportToolStripMenuItem.Name = "WorkOrderStatusReportToolStripMenuItem"
         Me.WorkOrderStatusReportToolStripMenuItem.Size = New System.Drawing.Size(323, 28)
         Me.WorkOrderStatusReportToolStripMenuItem.Text = "WorkOrder Status Report"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BizProfileToolStripMenuItem, Me.CustomersToolStripMenuItem, Me.UsersToolStripMenuItem, Me.ServiceItemsToolStripMenuItem, Me.LogOutToolStripMenuItem})
+        Me.SettingsToolStripMenuItem.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
+        Me.SettingsToolStripMenuItem.Text = "Settings"
+        '
+        'BizProfileToolStripMenuItem
+        '
+        Me.BizProfileToolStripMenuItem.Name = "BizProfileToolStripMenuItem"
+        Me.BizProfileToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.BizProfileToolStripMenuItem.Text = "Biz Profile"
+        '
+        'CustomersToolStripMenuItem
+        '
+        Me.CustomersToolStripMenuItem.Name = "CustomersToolStripMenuItem"
+        Me.CustomersToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.CustomersToolStripMenuItem.Text = "Customers"
+        '
+        'UsersToolStripMenuItem
+        '
+        Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
+        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.UsersToolStripMenuItem.Text = "Users"
+        '
+        'ServiceItemsToolStripMenuItem
+        '
+        Me.ServiceItemsToolStripMenuItem.Name = "ServiceItemsToolStripMenuItem"
+        Me.ServiceItemsToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.ServiceItemsToolStripMenuItem.Text = "Service Items"
+        '
+        'LogOutToolStripMenuItem
+        '
+        Me.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem"
+        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.LogOutToolStripMenuItem.Text = "Log Out"
         '
         'frmMain
         '

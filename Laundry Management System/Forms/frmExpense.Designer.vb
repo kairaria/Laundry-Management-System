@@ -66,7 +66,7 @@ Partial Class frmExpenses
         Me.lblExpense.AutoSize = True
         Me.lblExpense.Location = New System.Drawing.Point(13, 13)
         Me.lblExpense.Name = "lblExpense"
-        Me.lblExpense.Size = New System.Drawing.Size(204, 23)
+        Me.lblExpense.Size = New System.Drawing.Size(176, 21)
         Me.lblExpense.TabIndex = 11
         Me.lblExpense.Text = "Expense Description"
         '
@@ -106,7 +106,7 @@ Partial Class frmExpenses
         Me.txtTransactionID.Font = New System.Drawing.Font("Century Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTransactionID.Location = New System.Drawing.Point(159, 166)
         Me.txtTransactionID.Name = "txtTransactionID"
-        Me.txtTransactionID.Size = New System.Drawing.Size(154, 27)
+        Me.txtTransactionID.Size = New System.Drawing.Size(154, 24)
         Me.txtTransactionID.TabIndex = 8
         '
         'lblTransactionID
@@ -114,7 +114,7 @@ Partial Class frmExpenses
         Me.lblTransactionID.AutoSize = True
         Me.lblTransactionID.Location = New System.Drawing.Point(8, 169)
         Me.lblTransactionID.Name = "lblTransactionID"
-        Me.lblTransactionID.Size = New System.Drawing.Size(146, 23)
+        Me.lblTransactionID.Size = New System.Drawing.Size(129, 21)
         Me.lblTransactionID.TabIndex = 7
         Me.lblTransactionID.Text = "Transaction ID"
         '
@@ -122,7 +122,7 @@ Partial Class frmExpenses
         '
         Me.txtAmount.Location = New System.Drawing.Point(159, 218)
         Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.Size = New System.Drawing.Size(121, 32)
+        Me.txtAmount.Size = New System.Drawing.Size(121, 28)
         Me.txtAmount.TabIndex = 6
         '
         'lblAmount
@@ -130,7 +130,7 @@ Partial Class frmExpenses
         Me.lblAmount.AutoSize = True
         Me.lblAmount.Location = New System.Drawing.Point(13, 221)
         Me.lblAmount.Name = "lblAmount"
-        Me.lblAmount.Size = New System.Drawing.Size(88, 23)
+        Me.lblAmount.Size = New System.Drawing.Size(76, 21)
         Me.lblAmount.TabIndex = 5
         Me.lblAmount.Text = "Amount"
         '
@@ -143,13 +143,13 @@ Partial Class frmExpenses
         Me.cbxPaymentMode.Items.AddRange(New Object() {"Cash", "Mpesa"})
         Me.cbxPaymentMode.Location = New System.Drawing.Point(16, 122)
         Me.cbxPaymentMode.Name = "cbxPaymentMode"
-        Me.cbxPaymentMode.Size = New System.Drawing.Size(295, 31)
+        Me.cbxPaymentMode.Size = New System.Drawing.Size(295, 29)
         Me.cbxPaymentMode.TabIndex = 4
         Me.cbxPaymentMode.Text = "Select Payment Mode"
         '
         'frmExpenses
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(354, 381)

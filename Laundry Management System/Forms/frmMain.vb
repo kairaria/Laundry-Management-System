@@ -109,4 +109,20 @@ Public Class frmMain
     Private Sub WorkOrderStatusReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WorkOrderStatusReportToolStripMenuItem.Click
         frmWorkOrdersReport.Show()
     End Sub
+
+    Private Sub ServiceItemsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServiceItemsToolStripMenuItem.Click
+        frmServiceItem.Show()
+    End Sub
+
+    Private Sub BizProfileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BizProfileToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub CustomersToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CustomersToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub UsersToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UsersToolStripMenuItem.Click
+
+    End Sub
 End Class
